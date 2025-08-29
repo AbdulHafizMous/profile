@@ -1,0 +1,45 @@
+from playwright.sync_api import sync_playwright, Playwright
+
+
+
+
+TIME = 60000
+
+def run(playwright: Playwright):
+    chromium = playwright.chromium  # or "firefox" or "webkit".
+    browser = chromium.launch(headless=False)
+    context = browser.new_context(storage_state="rel.json")
+    page = context.new_page()
+    try:
+        page.goto("https://www.rel.network/property/1017540155", timeout=TIME)
+        page.wait_for_load_state('load', timeout=TIME)
+    except Exception as e:
+            print(e)
+    
+    span = page.locator("span", has_text="Ownership")
+    print(f"Span {span}")
+    if span:
+        print('Got Ownership Btn')
+        span.click()
+        print("clicked")
+        try:
+            page.wait_for_selector("div.flex.flex-col.flex-grow")
+        except Exception as e:
+            print(e)
+
+        content = page.content()
+        with open("src.txt", "w") as f:
+            f.write(content)
+
+        # page.wait_for_selector('div[has_text=""]')
+        # print("waited")
+        # rows = page.query_selector_all("div.flex div.grid")
+        # print(f"Got {len(rows)} Rows !")
+
+    page.pause()
+    context.storage_state(path="rel.json")
+    browser.close()
+
+
+with sync_playwright() as playwright:
+    run(playwright)
