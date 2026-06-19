@@ -25,11 +25,473 @@
 
   <link href="assets/css/style.css" rel="stylesheet">
 
+  <!-- Projects gallery styles (scoped, additive only — no global overrides) -->
+  <style>
+    /* ===== Projects Gallery — premium, scoped to #projects ===== */
+    #projects.projects {
+      position: relative;
+    }
+
+    #projects .pg-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin: -10px 0 36px;
+    }
+
+    #projects .pg-toolbar .pg-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 9px 18px;
+      border-radius: 30px;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      font-size: 14px;
+      font-weight: 500;
+      color: #2c2c2c;
+      cursor: pointer;
+      transition: all .25s ease;
+      line-height: 1;
+    }
+
+    #projects .pg-toolbar .pg-btn:hover {
+      border-color: var(--accent-color, #149ddd);
+      color: var(--accent-color, #149ddd);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(0,0,0,.08);
+    }
+
+    #projects .pg-toolbar .pg-btn.is-active {
+      background: var(--accent-color, #149ddd);
+      border-color: var(--accent-color, #149ddd);
+      color: #fff;
+    }
+
+    #projects .pg-toolbar .pg-btn svg { width: 15px; height: 15px; flex: none; }
+
+    /* ----- Grid mode (default, shows up to N at once) ----- */
+    #projects .pg-viewport {
+      overflow: hidden;
+      position: relative;
+    }
+
+    #projects .pg-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      transition: none;
+    }
+
+    #projects.pg-scroll-mode .pg-track {
+      display: flex;
+      gap: 24px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      scroll-snap-type: x proximity;
+      padding-bottom: 14px;
+      -ms-overflow-style: none;
+    }
+
+    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar { height: 8px; }
+    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-track { background: rgba(0,0,0,.05); border-radius: 10px; }
+    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-thumb { background: rgba(0,0,0,.22); border-radius: 10px; }
+    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-thumb:hover { background: var(--accent-color, #149ddd); }
+
+    #projects.pg-scroll-mode .project-card {
+      flex: 0 0 320px;
+      scroll-snap-align: start;
+    }
+
+    #projects .pg-nav {
+      display: none;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    #projects.pg-scroll-mode .pg-nav { display: flex; }
+
+    #projects .pg-nav button {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,.12);
+      background: #fff;
+      color: #2c2c2c;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .25s ease;
+    }
+
+    #projects .pg-nav button:hover {
+      background: var(--accent-color, #149ddd);
+      border-color: var(--accent-color, #149ddd);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
+    #projects .pg-nav button svg { width: 18px; height: 18px; }
+
+    #projects .pg-nav .pg-dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    #projects .pg-nav .pg-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(0,0,0,.18);
+      transition: all .3s ease;
+    }
+
+    #projects .pg-nav .pg-dots span.is-active {
+      background: var(--accent-color, #149ddd);
+      width: 22px;
+      border-radius: 4px;
+    }
+
+    /* ----- Project card ----- */
+    #projects .project-card {
+      position: relative;
+      background: #fff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 24px rgba(20, 20, 30, .06);
+      transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
+      will-change: transform;
+      opacity: 0;
+      transform: translateY(28px);
+    }
+
+    #projects .project-card.pg-in {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #projects .project-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 22px 40px rgba(20, 20, 30, .14);
+    }
+
+    #projects .project-card.pg-dragging {
+      opacity: .35;
+    }
+
+    #projects .project-card.pg-drag-over {
+      outline: 2px dashed var(--accent-color, #149ddd);
+      outline-offset: 4px;
+    }
+
+    /* Drag handle — only visible in edit mode */
+    #projects .pg-drag-handle {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(20,20,30,.55);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: grab;
+      z-index: 5;
+      opacity: 0;
+      transition: opacity .2s ease;
+    }
+
+    #projects.pg-edit-mode .pg-drag-handle {
+      display: flex;
+      opacity: 1;
+    }
+
+    #projects .pg-drag-handle svg { width: 16px; height: 16px; }
+    #projects .pg-drag-handle:active { cursor: grabbing; }
+
+    /* Cover-image change button — only visible in edit mode */
+    #projects .pg-edit-cover {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      width: 32px;
+      height: 32px;
+      border-radius: 9px;
+      background: rgba(20,20,30,.55);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      border: none;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 5;
+      transition: background .2s ease;
+    }
+
+    #projects.pg-edit-mode .pg-edit-cover { display: flex; }
+    #projects .pg-edit-cover:hover { background: var(--accent-color, #149ddd); }
+    #projects .pg-edit-cover svg { width: 15px; height: 15px; }
+
+    /* Cover media area */
+    #projects .pg-cover {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: linear-gradient(135deg, #eef3f7 0%, #e3eaf0 100%);
+    }
+
+    #projects .pg-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .6s cubic-bezier(.22,1,.36,1);
+    }
+
+    #projects .project-card:hover .pg-cover img {
+      transform: scale(1.07);
+    }
+
+    /* Live-site preview (deployed projects) */
+    #projects .pg-cover .pg-live-frame-wrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+
+    #projects .pg-cover iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 250%;
+      height: 250%;
+      transform: scale(.4);
+      transform-origin: top left;
+      border: 0;
+      pointer-events: none;
+      background: #fff;
+    }
+
+    /* Soft gradient overlay for legibility + premium feel */
+    #projects .pg-cover::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(10,12,20,0) 45%, rgba(10,12,20,.65) 100%);
+      opacity: 0;
+      transition: opacity .4s ease;
+      pointer-events: none;
+    }
+
+    #projects .project-card:hover .pg-cover::after { opacity: 1; }
+
+    /* Placeholder (no live preview / no custom image) */
+    #projects .pg-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 6px;
+      color: #5b6b78;
+    }
+
+    #projects .pg-placeholder .pg-mono {
+      font-family: 'Roboto Mono', 'Courier New', monospace;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .55;
+    }
+
+    #projects .pg-placeholder .pg-glyph {
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: #3a4750;
+    }
+
+    /* Live badge */
+    #projects .pg-badge {
+      position: absolute;
+      bottom: 12px;
+      left: 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 11px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.92);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: #2c2c2c;
+      z-index: 3;
+      transform: translateY(6px);
+      opacity: 0;
+      transition: all .35s ease;
+    }
+
+    #projects .project-card:hover .pg-badge {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    #projects .pg-badge .pg-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #2ecc71;
+      box-shadow: 0 0 0 0 rgba(46,204,113,.6);
+      animation: pgPulse 2s infinite;
+    }
+
+    @keyframes pgPulse {
+      0%   { box-shadow: 0 0 0 0 rgba(46,204,113,.55); }
+      70%  { box-shadow: 0 0 0 6px rgba(46,204,113,0); }
+      100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
+    }
+
+    /* Visibility badge (private repo) */
+    #projects .pg-vis {
+      position: absolute;
+      bottom: 12px;
+      right: 14px;
+      padding: 4px 10px;
+      border-radius: 30px;
+      background: rgba(20,20,30,.55);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      z-index: 3;
+      backdrop-filter: blur(3px);
+    }
+
+    /* Info block */
+    #projects .project-info {
+      padding: 22px 22px 24px;
+    }
+
+    #projects .project-info .pg-meta {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    #projects .project-info .pg-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: #6c7a86;
+      font-weight: 500;
+    }
+
+    #projects .project-info .pg-lang .pg-lang-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      flex: none;
+    }
+
+    #projects .project-info h4 {
+      margin: 0 0 8px;
+      font-size: 19px;
+      font-weight: 700;
+      color: #1f2a33;
+    }
+
+    #projects .project-info p {
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #6c7a86;
+      margin: 0 0 16px;
+      min-height: 44px;
+    }
+
+    #projects .project-info .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Edit panel (per-card) for swapping the cover image */
+    #projects .pg-cover-input {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    /* Reset toast */
+    #projects .pg-toast {
+      position: fixed;
+      left: 50%;
+      bottom: 30px;
+      transform: translate(-50%, 20px);
+      background: #1f2a33;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 30px;
+      font-size: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: all .35s cubic-bezier(.22,1,.36,1);
+    }
+
+    #projects .pg-toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 1199px) {
+      #projects .pg-track { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 767px) {
+      #projects .pg-track { grid-template-columns: 1fr; }
+      #projects.pg-scroll-mode .project-card { flex: 0 0 78vw; }
+      #projects .pg-toolbar { margin-bottom: 26px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #projects .project-card,
+      #projects .pg-cover img,
+      #projects .pg-badge,
+      #projects .pg-toast {
+        transition: none !important;
+        animation: none !important;
+      }
+      #projects .project-card { opacity: 1 !important; transform: none !important; }
+    }
+  </style>
+
 
 </head>
 
 <!--Start of Tawk.to Script-->
-<script type="text/javascript">
+<!-- <script type="text/javascript">
   var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
   (function () {
     var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
@@ -39,7 +501,7 @@
     s1.setAttribute('crossorigin', '*');
     s0.parentNode.insertBefore(s1, s0);
   })();
-</script>
+</script> -->
 <!--End of Tawk.to Script-->
 
 <body>
@@ -74,6 +536,7 @@
           <li><a href="#competences" class="nav-link scrollto"><i class="bx bx-book-content"></i>
               <span>Compétences</span></a></li>
           <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
+          <li><a href="#projects" class="nav-link scrollto"><i class="bx bx-grid-alt"></i> <span>Projets</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
         </ul>
       </nav><!-- .nav-menu -->
@@ -442,141 +905,52 @@
       </div>
     </section><!-- End Services Section -->
 
+    <!-- ======= Projects Section (premium reorderable gallery) ======= -->
     <section id="projects" class="projects section light-background">
       <!-- Titre de section -->
       <div class="container section-title" data-aos="fade-up">
         <h2>Projets</h2>
-        <div><span>Découvrez</span> <span class="description-title">Quelques Projets</span></div>
-        <p>Voici une sélection de projets que j’ai réalisés : applications web et mobiles, solutions numériques et
-          outils open source. Cliquez pour voir les démos ou les dépôts.</p>
+        <div><span>Découvrez</span> <span class="description-title">Tous mes Projets</span></div>
+        <p>Une sélection complète de mes réalisations : applications web et mobiles, APIs, outils open source et
+          plateformes déployées. Réorganisez, personnalisez les vignettes, et naviguez à votre rythme.</p>
       </div><!-- Fin titre -->
+
       <div class="container">
-        <div class="row gy-5">
-          <!-- SweetChat -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/sweetchat.png" class="img-fluid rounded-3 shadow" style="height: 200px;"
-                  alt="SweetChat">
-              </div>
-              <div class="project-info mt-3">
-                <h4>SweetChat</h4>
-                <p>Application de chat instantané moderne et rapide, développée avec une interface responsive.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://sweet-chat-doc.vercel.app" class="read-more m-0"><span>Voir le
-                        projet</span><i class="bi bi-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
-          <!-- OutilSco -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/outilsco.png" class="img-fluid rounded-3 shadow" style="height: 200px;"
-                  alt="OutilSco">
-              </div>
-              <div class="project-info mt-3">
-                <h4>OutilSco</h4>
-                <p>Plateforme complète de gestion scolaire sous l’égide du cabinet FORD HIGH TECH.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://outilsco.com/" class="read-more m-0"><span>Visiter le site</span><i
-                        class="bi bi-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
-          <!-- CSV Editor -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/csv.jpg" class="img-fluid rounded-3 shadow" style="height: 200px;"
-                  alt="CSV Editor">
-              </div>
-              <div class="project-info mt-3">
-                <h4>CSV Editor</h4>
-                <p>Système simplifié de gestion de fichier csv, open source et modulable.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://github.com/AbdulHafizMous/webschool"
-                      class="read-more m-0"><span>Voir sur GitHub</span><i class="bi bi-arrow-right"></i></a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
-          <!-- Skipper -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/skipper.png" class="img-fluid rounded-3 shadow" style="height: 200px;"
-                  alt="Skipper - Navigation & info trafic">
-              </div>
-              <div class="project-info mt-3">
-                <h4>Skipper</h4>
-                <p>Plateforme de géolocalisation et d’info-trafic pensée pour le Bénin : info trafic en temps réel,
-                  itinéraires personnalisés, prise en charge des langues locales et intégration de marqueurs
-                  communautaires.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://skipper-vf.onrender.com/docs" class="read-more m-0">
-                      <span>Voir la démo</span><i class="bi bi-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
-          <!-- ComeUp -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/comeup.png" class="img-fluid rounded-3 shadow" style="height: 200px;"
-                  alt="ComeUp - Freelance Services">
-              </div>
-              <div class="project-info mt-3">
-                <h4>Mon Agence sur ComeUp</h4>
-                <p>Découvrez <strong>Senior Mood</strong>, mon agence digitale sur ComeUp : création de sites web,
-                  automatisations, bots, design et services numériques sur mesure.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://comeup.com/fr/@seniormood" class="read-more m-0">
-                      <span>Visiter mon profil</span><i class="bi bi-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
-          <!-- Upwork -->
-          <div class="col-lg-4 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-            <div class="project-card">
-              <div class="project-img d-flex justify-content-center">
-                <img src="assets/img/portfolio/upwork.webp" style="height: 200px;" class="img-fluid rounded-3 shadow"
-                  alt="Upwork - Freelance Marketplace">
-              </div>
-              <div class="project-info mt-3">
-                <h4>Mon Profil sur Upwork</h4>
-                <p>Freelancer international spécialisé en développement web & mobile, intégration d’API, automatisations
-                  et solutions SaaS.</p>
-                <div class="about m-0 p-0">
-                  <div class="content m-0 p-0">
-                    <a target="_blank" href="https://www.upwork.com/freelancers/~01d0e76ce5eefeb2f2"
-                      class="read-more m-0">
-                      <span>Voir mon profil</span><i class="bi bi-arrow-right"></i>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- Fin projet -->
+
+        <!-- Toolbar: view toggle + edit mode + reset -->
+        <div class="pg-toolbar">
+          <button type="button" class="pg-btn" id="pgViewToggle" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
+            <span id="pgViewToggleLabel">Voir en défilement</span>
+          </button>
+          <button type="button" class="pg-btn" id="pgEditToggle" aria-pressed="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+            <span id="pgEditToggleLabel">Réorganiser</span>
+          </button>
+          <button type="button" class="pg-btn" id="pgResetBtn" title="Réinitialiser l'ordre et les images">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+            Réinitialiser
+          </button>
         </div>
+
+        <div class="pg-viewport">
+          <div class="pg-track" id="pgTrack"><!-- cards injected by JS --></div>
+        </div>
+
+        <div class="pg-nav" id="pgNav">
+          <button type="button" id="pgPrev" aria-label="Précédent">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+          </button>
+          <div class="pg-dots" id="pgDots"></div>
+          <button type="button" id="pgNext" aria-label="Suivant">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+
       </div>
-    </section>
+
+      <div class="pg-toast" id="pgToast"></div>
+    </section><!-- End Projects Section -->
 
     <!-- ======= Contact Section ======= -->
     <section id="contact" class="contact">
@@ -704,6 +1078,677 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+
+  <!-- ======= Projects Gallery Engine ======= -->
+  <script>
+  (function () {
+    "use strict";
+
+    /* ---------------------------------------------------------------
+     * 1) DATA — the full project list.
+     *    - liveUrl: deployed site -> rendered as a live mini-preview
+     *    - repoUrl: GitHub link -> always the primary CTA
+     *    - lang/langColor: GitHub-style language dot
+     *    - visibility: "public" | "private"
+     * ------------------------------------------------------------- */
+    var PROJECTS = [
+      {
+        id: "smood",
+        name: "Senior Mood _Dev",
+        desc: "Site officiel du club de programmation SMOOD : actualités, ressources et communauté de devs.",
+        repoUrl: "https://github.com/AbdulHafizMous/smood",
+        liveUrl: "https://smood.onrender.com/",
+        lang: "HTML", langColor: "#e34c26",
+        visibility: "private"
+      },
+      {
+        id: "heventz",
+        name: "HeventZ",
+        desc: "Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.",
+        repoUrl: "https://github.com/AbdulHafizMous/HeventZ",
+        liveUrl: "https://heventz.onrender.com/",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "private"
+      },
+      {
+        id: "vizlyco",
+        name: "Vizly.co",
+        desc: "Application web orientée data & visualisation, conçue pour explorer l'information avec clarté.",
+        repoUrl: "https://github.com/AbdulHafizMous/vizly.co",
+        liveUrl: "https://vizly-co.onrender.com/",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "private"
+      },
+      {
+        id: "koro",
+        name: "Koro",
+        desc: "Projet web HTML déployé, exploratoire et orienté interface utilisateur soignée.",
+        repoUrl: "https://github.com/AbdulHafizMous/koro",
+        liveUrl: "https://koro-h7cs.onrender.com/",
+        lang: "HTML", langColor: "#e34c26",
+        visibility: "public"
+      },
+      {
+        id: "outilsco",
+        name: "OutilSco",
+        desc: "Plateforme complète de gestion scolaire sous l'égide du cabinet FORD HIGH TECH : élèves, notes, bulletins.",
+        repoUrl: "https://github.com/AbdulHafizMous/gp-backend",
+        liveUrl: "https://outilsco.com/",
+        lang: "PHP", langColor: "#4f5d95",
+        visibility: "private"
+      },
+      {
+        id: "sweetchat",
+        name: "SweetChat",
+        desc: "Application de chat instantané moderne et rapide, développée avec une interface responsive.",
+        repoUrl: "https://github.com/AbdulHafizMous/alnyf4tech",
+        liveUrl: "https://sweet-chat-doc.vercel.app",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "private"
+      },
+      {
+        id: "gp-mobile",
+        name: "Grand Public",
+        desc: "Application mobile Flutter liée à la plateforme Grand Public du Bénin.",
+        repoUrl: "https://github.com/AbdulHafizMous/gp-mobile",
+        liveUrl: "https://grandpublic.bj",
+        lang: "Dart", langColor: "#00b4ab",
+        visibility: "public"
+      },
+      {
+        id: "skipper",
+        name: "Skipper",
+        desc: "Géolocalisation et info-trafic pour le Bénin : itinéraires personnalisés, langues locales, marqueurs communautaires.",
+        repoUrl: "https://github.com/AbdulHafizMous/task-manager-wt",
+        liveUrl: "https://skipper-vf.onrender.com/docs",
+        lang: "Dart", langColor: "#00b4ab",
+        visibility: "public"
+      },
+      {
+        id: "csv-editor",
+        name: "CSV Editor",
+        desc: "Système simplifié de gestion de fichiers CSV, open source et modulable.",
+        repoUrl: "https://github.com/AbdulHafizMous/webschool",
+        img: "./assets/img/portfolio/csv.jpg",
+        lang: "HTML", langColor: "#e34c26",
+        visibility: "public"
+      },
+      // {
+      //   id: "lim",
+      //   name: "Ladies In Marketing",
+      //   desc: "Hub officiel \"Ladies In Marketing\" : ressources, événements et mise en réseau pour la communauté.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/lim",
+      //   lang: "TypeScript", langColor: "#3178c6",
+      //   visibility: "private"
+      // },
+      {
+        id: "haftuber",
+        name: "Haftuber",
+        desc: "Outil Python autour de l'automatisation et de la manipulation de contenus.",
+        repoUrl: "https://github.com/AbdulHafizMous/haftuber",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "private"
+      },
+      {
+        id: "shortmaster",
+        name: "ShortMaster",
+        desc: "Outil web pour la gestion et le raccourcissement de liens, interface HTML légère.",
+        repoUrl: "https://github.com/AbdulHafizMous/shortmaster",
+        lang: "HTML", langColor: "#e34c26",
+        visibility: "private"
+      },
+      {
+        id: "leadflow",
+        name: "LeadFlow",
+        desc: "Système Python de gestion et de suivi de prospects (leads) pour automatiser le pipeline commercial.",
+        repoUrl: "https://github.com/AbdulHafizMous/leadflow",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "private"
+      },
+      {
+        id: "profile",
+        name: "Profile — Portfolio mono-page",
+        desc: "Portfolio descriptif minimaliste, conçu pour présenter un profil en une seule page.",
+        repoUrl: "https://github.com/AbdulHafizMous/profile",
+        lang: "HTML", langColor: "#e34c26",
+        visibility: "public"
+      },
+      // {
+      //   id: "hohaya-backend",
+      //   name: "Hohaya — Backend",
+      //   desc: "API et logique serveur Laravel/Blade pour la plateforme Hohaya.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/hohaya-backend",
+      //   lang: "Blade", langColor: "#f7523f",
+      //   visibility: "private"
+      // },
+      {
+        id: "utils",
+        name: "Utils",
+        desc: "Collection de scripts et utilitaires Python partagés avec la communauté.",
+        repoUrl: "https://github.com/AbdulHafizMous/utils",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "public"
+      },
+      {
+        id: "hafiz-pro-d-line",
+        name: "Hafiz Pro D-Line",
+        desc: "Projet Python d'automatisation et de traitement de données personnalisé.",
+        repoUrl: "https://github.com/AbdulHafizMous/hafiz-pro-d-line",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "private"
+      },
+      {
+        id: "hafditor",
+        name: "Hafditor",
+        desc: "Éditeur / outil Python pensé pour accélérer un flux de travail spécifique au quotidien.",
+        repoUrl: "https://github.com/AbdulHafizMous/hafditor",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "private"
+      },
+      {
+        id: "loghafo",
+        name: "LogHafo",
+        desc: "Outil Python de journalisation (logging) et de suivi d'activité applicative.",
+        repoUrl: "https://github.com/AbdulHafizMous/loghafo",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "private"
+      },
+      {
+        id: "shared",
+        name: "Shared",
+        desc: "Librairie de composants et utilitaires TypeScript partagés entre plusieurs projets.",
+        repoUrl: "https://github.com/AbdulHafizMous/shared",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "public"
+      },
+      // {
+      //   id: "grand-public-connect",
+      //   name: "Grand Public Connect",
+      //   desc: "Plateforme de mise en contact entre travailleurs et employeurs, pour le grand public.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/grand-public-connect",
+      //   lang: "TypeScript", langColor: "#3178c6",
+      //   visibility: "private"
+      // },
+      {
+        id: "benin-child-voice",
+        name: "Benin Child Voice",
+        desc: "Plateforme dédiée à la voix et aux droits des enfants au Bénin — activisme & sensibilisation.",
+        repoUrl: "https://github.com/AbdulHafizMous/benin-child-voice",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "private"
+      },
+      {
+        id: "public-apis",
+        name: "Public APIs",
+        desc: "Liste collaborative et organisée d'APIs publiques gratuites, en contribution open source.",
+        repoUrl: "https://github.com/AbdulHafizMous/public-apis",
+        lang: "Python", langColor: "#3572a5",
+        visibility: "public"
+      },
+      // {
+      //   id: "resto-api",
+      //   name: "Resto API",
+      //   desc: "Une API REST simple pour un système de gestion de restaurant, construite avec Symfony.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/resto-api",
+      //   lang: "PHP", langColor: "#4f5d95",
+      //   visibility: "public"
+      // },
+      // {
+      //   id: "ford-fuel-flow",
+      //   name: "Ford Fuel Flow",
+      //   desc: "Application mobile Flutter de suivi et de gestion de consommation de carburant.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/Ford-Fuel-Flow",
+      //   lang: "Dart", langColor: "#00b4ab",
+      //   visibility: "private"
+      // },
+      {
+        id: "taskm-wt",
+        name: "TaskM — WT",
+        desc: "Application mobile Flutter de gestion de tâches, variante \"WT\".",
+        repoUrl: "https://github.com/AbdulHafizMous/taskm-wt",
+        lang: "Dart", langColor: "#00b4ab",
+        visibility: "public"
+      },
+      {
+        id: "taskm-web",
+        name: "TaskM — Web",
+        desc: "Version web TypeScript de l'application de gestion de tâches TaskM.",
+        repoUrl: "https://github.com/AbdulHafizMous/taskm-web",
+        lang: "TypeScript", langColor: "#3178c6",
+        visibility: "public"
+      },
+      {
+        id: "kkiapay-api",
+        name: "Kkiapay API",
+        desc: "Intégration backend Blade autour de l'API de paiement Kkiapay.",
+        repoUrl: "https://github.com/AbdulHafizMous/kkiapay-api",
+        lang: "Blade", langColor: "#f7523f",
+        visibility: "public"
+      },
+      // {
+      //   id: "airtable-content-stylist",
+      //   name: "Airtable Content Stylist",
+      //   desc: "Outil TypeScript d'automatisation pour styliser et organiser du contenu directement depuis Airtable.",
+      //   repoUrl: "https://github.com/AbdulHafizMous/airtable-content-stylist",
+      //   lang: "TypeScript", langColor: "#3178c6",
+      //   visibility: "private"
+      // },
+      {
+        id: "comeup",
+        name: "Senior Mood — Agence ComeUp",
+        desc: "Agence digitale sur ComeUp : sites web, automatisations, bots, design et services numériques sur mesure.",
+        repoUrl: "https://comeup.com/fr/@seniormood",
+        lang: "Service", langColor: "#999999",
+        visibility: "public"
+      },
+      {
+        id: "upwork",
+        name: "Profil Upwork",
+        desc: "Freelancer international : développement web & mobile, intégration d'API, automatisations, solutions SaaS.",
+        repoUrl: "https://www.upwork.com/freelancers/~01d0e76ce5eefeb2f2",
+        lang: "Service", langColor: "#999999",
+        visibility: "public"
+      }
+    ];
+
+    var DEFAULT_ORDER = PROJECTS.map(function (p) { return p.id; });
+    var BY_ID = {};
+    PROJECTS.forEach(function (p) { BY_ID[p.id] = p; });
+
+    var LS_ORDER = "pg_project_order_v1";
+    var LS_IMAGES = "pg_project_images_v1";
+    var LS_VIEW = "pg_view_mode_v1";
+
+    var GRID_PAGE_SIZE = 9; // "9 at a time" in grid mode
+
+    /* ---------------------------------------------------------------
+     * 2) STATE
+     * ------------------------------------------------------------- */
+    var state = {
+      order: loadOrder(),
+      images: loadImages(),
+      viewMode: localStorage.getItem(LS_VIEW) || "grid", // "grid" | "scroll"
+      editMode: false,
+      gridPage: 0
+    };
+
+    function loadOrder() {
+      try {
+        var raw = JSON.parse(localStorage.getItem(LS_ORDER) || "null");
+        if (Array.isArray(raw) && raw.length) {
+          // merge in any new ids not present in saved order, drop stale ones
+          var known = raw.filter(function (id) { return BY_ID[id]; });
+          DEFAULT_ORDER.forEach(function (id) {
+            if (known.indexOf(id) === -1) known.push(id);
+          });
+          return known;
+        }
+      } catch (e) {}
+      return DEFAULT_ORDER.slice();
+    }
+
+    function loadImages() {
+      try {
+        return JSON.parse(localStorage.getItem(LS_IMAGES) || "{}") || {};
+      } catch (e) { return {}; }
+    }
+
+    function persistOrder() {
+      localStorage.setItem(LS_ORDER, JSON.stringify(state.order));
+    }
+    function persistImages() {
+      localStorage.setItem(LS_IMAGES, JSON.stringify(state.images));
+    }
+    function persistView() {
+      localStorage.setItem(LS_VIEW, state.viewMode);
+    }
+
+    /* ---------------------------------------------------------------
+     * 3) DOM refs
+     * ------------------------------------------------------------- */
+    var section = document.getElementById("projects");
+    var track = document.getElementById("pgTrack");
+    var viewToggle = document.getElementById("pgViewToggle");
+    var viewToggleLabel = document.getElementById("pgViewToggleLabel");
+    var editToggle = document.getElementById("pgEditToggle");
+    var editToggleLabel = document.getElementById("pgEditToggleLabel");
+    var resetBtn = document.getElementById("pgResetBtn");
+    var nav = document.getElementById("pgNav");
+    var dotsWrap = document.getElementById("pgDots");
+    var prevBtn = document.getElementById("pgPrev");
+    var nextBtn = document.getElementById("pgNext");
+    var toastEl = document.getElementById("pgToast");
+
+    /* ---------------------------------------------------------------
+     * 4) Card markup builders
+     * ------------------------------------------------------------- */
+    function placeholderGlyph(name) {
+      // First letters of up to two words — clean typographic mark, no icon clichés.
+      var words = name.replace(/[^\w\s]/g, "").trim().split(/\s+/).filter(Boolean);
+      if (words.length === 0) return "??";
+      if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
+      return (words[0][0] + words[1][0]).toUpperCase();
+    }
+
+    function buildCardHTML(p) {
+      var customImg = state.images[p.id];
+      var coverInner = "";
+
+      if (customImg) {
+        coverInner = '<img src="' + escapeAttr(customImg) + '" alt="' + escapeAttr(p.name) + '" loading="lazy">';
+      } else if (p.img) {
+        coverInner = '<img src="' + escapeAttr(p.img) + '" alt="' + escapeAttr(p.name) + '" loading="lazy">';
+      } else if (p.liveUrl) {
+        coverInner =
+          '<div class="pg-live-frame-wrap">' +
+            '<iframe src="' + escapeAttr(p.liveUrl) + '" loading="lazy" tabindex="-1" aria-hidden="true" title="Aperçu de ' + escapeAttr(p.name) + '"></iframe>' +
+          '</div>';
+      } else {
+        coverInner =
+          '<div class="pg-placeholder">' +
+            '<span class="pg-glyph">' + placeholderGlyph(p.name) + '</span>' +
+            '<span class="pg-mono">' + escapeHTML(p.lang || "Code") + '</span>' +
+          '</div>';
+      }
+
+      var badge = p.liveUrl
+        ? '<span class="pg-badge"><span class="pg-dot"></span>En ligne</span>'
+        : "";
+
+      var visBadge = p.visibility === "private"
+        ? '<span class="pg-vis">Privé</span>'
+        : "";
+
+      var primaryHref = p.liveUrl || p.repoUrl;
+      var primaryLabel = p.liveUrl ? "Voir le projet" : "Voir sur GitHub";
+
+      return (
+        '<div class="project-card" data-id="' + p.id + '" draggable="false">' +
+          '<button type="button" class="pg-drag-handle" aria-label="Déplacer ' + escapeAttr(p.name) + '" title="Glisser pour réordonner">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="1.2"></circle><circle cx="9" cy="12" r="1.2"></circle><circle cx="9" cy="18" r="1.2"></circle><circle cx="15" cy="6" r="1.2"></circle><circle cx="15" cy="12" r="1.2"></circle><circle cx="15" cy="18" r="1.2"></circle></svg>' +
+          '</button>' +
+          '<button type="button" class="pg-edit-cover" data-id="' + p.id + '" aria-label="Changer l\'image de couverture" title="Changer l\'image de couverture">' +
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>' +
+            '<input type="file" accept="image/*" class="pg-cover-input" data-id="' + p.id + '">' +
+          '</button>' +
+          '<div class="pg-cover">' +
+            coverInner +
+            badge +
+            visBadge +
+          '</div>' +
+          '<div class="project-info">' +
+            '<div class="pg-meta">' +
+              '<span class="pg-lang"><span class="pg-lang-dot" style="background:' + escapeAttr(p.langColor || "#999") + '"></span>' + escapeHTML(p.lang || "") + '</span>' +
+            '</div>' +
+            '<h4>' + escapeHTML(p.name) + '</h4>' +
+            '<p>' + escapeHTML(p.desc) + '</p>' +
+            '<div class="d-flex align-items-center gap-3">' +
+              '<a href="' + escapeAttr(primaryHref) + '" target="_blank" rel="noopener" class="read-more"><span>' + primaryLabel + '</span><i class="bi bi-arrow-right"></i></a>' +
+              (p.liveUrl ? '<a href="' + escapeAttr(p.repoUrl) + '" target="_blank" rel="noopener" class="read-more" style="opacity:.65"><i class="bx bxl-github"></i></a>' : '') +
+            '</div>' +
+          '</div>' +
+        '</div>'
+      );
+    }
+
+    function escapeHTML(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+      });
+    }
+    function escapeAttr(s) { return escapeHTML(s); }
+
+    /* ---------------------------------------------------------------
+     * 5) Render
+     * ------------------------------------------------------------- */
+    var io; // IntersectionObserver for reveal animation
+
+    function orderedProjects() {
+      return state.order.map(function (id) { return BY_ID[id]; }).filter(Boolean);
+    }
+
+    function render() {
+      var list = orderedProjects();
+
+      section.classList.toggle("pg-scroll-mode", state.viewMode === "scroll");
+      section.classList.toggle("pg-edit-mode", state.editMode);
+
+      var visibleList = list;
+      if (state.viewMode === "grid") {
+        var start = state.gridPage * GRID_PAGE_SIZE;
+        visibleList = list.slice(start, start + GRID_PAGE_SIZE);
+        // if page is out of range (e.g. after reorder shrink), clamp
+        if (visibleList.length === 0 && state.gridPage > 0) {
+          state.gridPage = 0;
+          visibleList = list.slice(0, GRID_PAGE_SIZE);
+        }
+      }
+
+      track.innerHTML = visibleList.map(buildCardHTML).join("");
+
+      attachCardHandlers();
+      animateIn();
+      renderNav(list.length);
+    }
+
+    function animateIn() {
+      if (io) io.disconnect();
+      var cards = track.querySelectorAll(".project-card");
+      if (!("IntersectionObserver" in window)) {
+        cards.forEach(function (c) { c.classList.add("pg-in"); });
+        return;
+      }
+      io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry, i) {
+          if (entry.isIntersecting) {
+            var el = entry.target;
+            var delay = Array.prototype.indexOf.call(cards, el) * 60;
+            setTimeout(function () { el.classList.add("pg-in"); }, delay);
+            io.unobserve(el);
+          }
+        });
+      }, { threshold: 0.12 });
+      cards.forEach(function (c) { io.observe(c); });
+    }
+
+    function renderNav(totalCount) {
+      if (state.viewMode === "grid") {
+        var totalPages = Math.max(1, Math.ceil(totalCount / GRID_PAGE_SIZE));
+        if (totalPages > 1) {
+          nav.style.display = "flex";
+          buildDots(totalPages, state.gridPage, function (i) {
+            state.gridPage = i;
+            render();
+          });
+        } else {
+          nav.style.display = "none";
+        }
+        return;
+      }
+      // scroll mode: nav always available, dots reflect scroll position
+      nav.style.display = "flex";
+      buildDots(Math.max(1, Math.min(totalCount, 8)), 0, null, true);
+    }
+
+    function buildDots(count, activeIndex, onClick, isScrollMode) {
+      dotsWrap.innerHTML = "";
+      for (var i = 0; i < count; i++) {
+        var d = document.createElement("span");
+        if (i === activeIndex) d.classList.add("is-active");
+        if (onClick) {
+          d.style.cursor = "pointer";
+          d.addEventListener("click", function (idx) {
+            return function () { onClick(idx); };
+          }(i));
+        }
+        dotsWrap.appendChild(d);
+      }
+      if (isScrollMode) updateScrollDots();
+    }
+
+    function updateScrollDots() {
+      var dots = dotsWrap.querySelectorAll("span");
+      if (!dots.length) return;
+      var track2 = track;
+      var max = track2.scrollWidth - track2.clientWidth;
+      var ratio = max > 0 ? track2.scrollLeft / max : 0;
+      var idx = Math.min(dots.length - 1, Math.round(ratio * (dots.length - 1)));
+      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === idx); });
+    }
+
+    /* ---------------------------------------------------------------
+     * 6) Card-level handlers: cover upload, drag reorder
+     * ------------------------------------------------------------- */
+    function attachCardHandlers() {
+      track.querySelectorAll(".pg-cover-input").forEach(function (input) {
+        input.addEventListener("change", function (e) {
+          var id = input.getAttribute("data-id");
+          var file = e.target.files && e.target.files[0];
+          if (!file) return;
+          var reader = new FileReader();
+          reader.onload = function (ev) {
+            state.images[id] = ev.target.result;
+            persistImages();
+            render();
+            showToast("Image mise à jour");
+          };
+          reader.readAsDataURL(file);
+        });
+      });
+
+      // Drag & drop reordering (desktop) — only meaningful in edit mode
+      var cards = Array.prototype.slice.call(track.querySelectorAll(".project-card"));
+      cards.forEach(function (card) {
+        var handle = card.querySelector(".pg-drag-handle");
+
+        handle.addEventListener("mousedown", function () { card.setAttribute("draggable", "true"); });
+        handle.addEventListener("touchstart", function () { card.setAttribute("draggable", "true"); }, { passive: true });
+
+        card.addEventListener("dragstart", function (e) {
+          if (!state.editMode) { e.preventDefault(); return; }
+          card.classList.add("pg-dragging");
+          e.dataTransfer.effectAllowed = "move";
+          e.dataTransfer.setData("text/plain", card.getAttribute("data-id"));
+        });
+
+        card.addEventListener("dragend", function () {
+          card.classList.remove("pg-dragging");
+          card.setAttribute("draggable", "false");
+          track.querySelectorAll(".project-card").forEach(function (c) { c.classList.remove("pg-drag-over"); });
+        });
+
+        card.addEventListener("dragover", function (e) {
+          if (!state.editMode) return;
+          e.preventDefault();
+          card.classList.add("pg-drag-over");
+        });
+
+        card.addEventListener("dragleave", function () {
+          card.classList.remove("pg-drag-over");
+        });
+
+        card.addEventListener("drop", function (e) {
+          if (!state.editMode) return;
+          e.preventDefault();
+          card.classList.remove("pg-drag-over");
+          var draggedId = e.dataTransfer.getData("text/plain");
+          var targetId = card.getAttribute("data-id");
+          if (!draggedId || draggedId === targetId) return;
+          reorder(draggedId, targetId);
+        });
+      });
+    }
+
+    function reorder(draggedId, targetId) {
+      var order = state.order;
+      var from = order.indexOf(draggedId);
+      var to = order.indexOf(targetId);
+      if (from === -1 || to === -1) return;
+      order.splice(from, 1);
+      order.splice(to, 0, draggedId);
+      persistOrder();
+      render();
+    }
+
+    /* ---------------------------------------------------------------
+     * 7) Toolbar controls
+     * ------------------------------------------------------------- */
+    function setViewMode(mode) {
+      state.viewMode = mode;
+      state.gridPage = 0;
+      persistView();
+      viewToggle.classList.toggle("is-active", mode === "scroll");
+      viewToggle.setAttribute("aria-pressed", mode === "scroll" ? "true" : "false");
+      viewToggleLabel.textContent = mode === "scroll" ? "Voir en grille" : "Voir en défilement";
+      render();
+    }
+
+    viewToggle.addEventListener("click", function () {
+      setViewMode(state.viewMode === "grid" ? "scroll" : "grid");
+    });
+
+    editToggle.addEventListener("click", function () {
+      state.editMode = !state.editMode;
+      editToggle.classList.toggle("is-active", state.editMode);
+      editToggle.setAttribute("aria-pressed", state.editMode ? "true" : "false");
+      editToggleLabel.textContent = state.editMode ? "Terminer" : "Réorganiser";
+      section.classList.toggle("pg-edit-mode", state.editMode);
+      if (state.editMode) showToast("Glissez les cartes ou changez leur image de couverture");
+    });
+
+    resetBtn.addEventListener("click", function () {
+      state.order = DEFAULT_ORDER.slice();
+      state.images = {};
+      state.gridPage = 0;
+      persistOrder();
+      persistImages();
+      render();
+      showToast("Ordre et images réinitialisés");
+    });
+
+    prevBtn.addEventListener("click", function () {
+      if (state.viewMode === "grid") {
+        state.gridPage = Math.max(0, state.gridPage - 1);
+        render();
+      } else {
+        track.scrollBy({ left: -340, behavior: "smooth" });
+      }
+    });
+
+    nextBtn.addEventListener("click", function () {
+      if (state.viewMode === "grid") {
+        var totalPages = Math.max(1, Math.ceil(orderedProjects().length / GRID_PAGE_SIZE));
+        state.gridPage = Math.min(totalPages - 1, state.gridPage + 1);
+        render();
+      } else {
+        track.scrollBy({ left: 340, behavior: "smooth" });
+      }
+    });
+
+    track.addEventListener("scroll", function () {
+      if (state.viewMode === "scroll") updateScrollDots();
+    }, { passive: true });
+
+    var toastTimer;
+    function showToast(msg) {
+      toastEl.textContent = msg;
+      toastEl.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(function () { toastEl.classList.remove("is-visible"); }, 2400);
+    }
+
+    /* ---------------------------------------------------------------
+     * 8) Init
+     * ------------------------------------------------------------- */
+    if (state.viewMode === "scroll") {
+      viewToggle.classList.add("is-active");
+      viewToggle.setAttribute("aria-pressed", "true");
+      viewToggleLabel.textContent = "Voir en grille";
+    }
+
+    render();
+  })();
+  </script>
 
 </body>
 
