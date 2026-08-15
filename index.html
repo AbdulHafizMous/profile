@@ -1,1756 +1,1550 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hafiz MOUSTAPHA — Développeur Full-Stack &amp; Bâtisseur de produits</title>
+<meta name="description" content="Portfolio de Hafiz MOUSTAPHA — Développeur Full-Stack orienté mobile, freelance basé à Cotonou, Bénin. Web, mobile, automatisation & data.">
 
-  <title>Hafiz M. </title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1512'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='%23E7B23D' text-anchor='middle'%3EAH%3C/text%3E%3C/svg%3E">
 
-  <!-- Favicons -->
-  <link href="assets/img/profile.jpeg" rel="icon">
-  <link href="assets/img/profile.jpeg" rel="apple-touch-icon">
+<style>
+  /* ============ 1. TOKENS ============ */
+  :root{
+    --bg:#0B1512;
+    --bg-alt:#0E1B16;
+    --bg-elevated:#122620;
+    --card:rgba(243,239,228,0.035);
+    --card-hover:rgba(243,239,228,0.065);
+    --line:rgba(232,225,204,0.11);
+    --line-strong:rgba(232,225,204,0.2);
+    --ink:#F3EFE4;
+    --ink-dim:#A9B6AC;
+    --ink-faint:#6C7B70;
+    --gold:#E7B23D;
+    --gold-soft:#F0CB77;
+    --jade:#33AC83;
+    --jade-soft:#7BD1AF;
+    --rust:#C1502F;
+    --rust-soft:#E07A52;
+    --shadow: 0 30px 60px -20px rgba(0,0,0,0.55);
+    --radius: 18px;
+    --radius-sm: 10px;
+    --maxw: 1160px;
+    --ease: cubic-bezier(.19,1,.22,1);
+  }
 
+  *,*::before,*::after{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation-duration:0.001ms !important;animation-iteration-count:1 !important;transition-duration:0.001ms !important;scroll-behavior:auto !important;}
+  }
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Manrope',sans-serif;
+    font-size:16px;
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
 
-  <link href="assets/css/style.css" rel="stylesheet">
+  ::selection{ background:var(--gold); color:#0B1512; }
 
-  <!-- Projects gallery styles (scoped, additive only — no global overrides) -->
-  <style>
-    /* ===== Projects Gallery — premium, scoped to #projects ===== */
-    #projects.projects {
-      position: relative;
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  ul{margin:0;padding:0;list-style:none;}
+  h1,h2,h3,h4{margin:0;font-family:'Fraunces',serif;font-weight:600;letter-spacing:-0.01em;}
+  p{margin:0;}
+  button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 28px; }
+  section{ position:relative; padding:120px 0; }
+  @media (max-width:780px){ section{ padding:80px 0; } }
+
+  .eyebrow{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--gold);
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:18px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px;height:1px;
+    background:var(--gold);
+  }
+
+  .section-head{ max-width:640px; margin-bottom:56px; }
+  .section-head h2{ font-size:clamp(30px,4vw,44px); line-height:1.12; }
+  .section-head .lede{ margin-top:16px; color:var(--ink-dim); font-size:17px; max-width:520px; }
+
+  /* signature wax-weave pattern */
+  .weave-bg{
+    position:absolute; inset:0;
+    background-image:
+      linear-gradient(135deg, transparent 46%, rgba(231,178,61,0.05) 46%, rgba(231,178,61,0.05) 48%, transparent 48%),
+      linear-gradient(45deg, transparent 46%, rgba(231,178,61,0.05) 46%, rgba(231,178,61,0.05) 48%, transparent 48%);
+    background-size:64px 64px;
+    pointer-events:none;
+  }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:10px;
+    padding:14px 26px;
+    border-radius:100px;
+    font-family:'Manrope',sans-serif;
+    font-weight:700;
+    font-size:14.5px;
+    letter-spacing:.01em;
+    transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .3s ease, border-color .3s ease, color .3s ease;
+    white-space:nowrap;
+  }
+  .btn-primary{ background:var(--gold); color:#171009; }
+  .btn-primary:hover{ transform:translateY(-3px); box-shadow:0 16px 30px -10px rgba(231,178,61,.45); }
+  .btn-ghost{ border:1px solid var(--line-strong); color:var(--ink); }
+  .btn-ghost:hover{ border-color:var(--gold); color:var(--gold); transform:translateY(-3px); }
+  .btn-sm{ padding:9px 18px; font-size:13px; }
+
+  /* ============ 2. NAV ============ */
+  header.site-nav{
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    backdrop-filter:blur(14px);
+    background:rgba(11,21,18,0.72);
+    border-bottom:1px solid transparent;
+    transition:border-color .3s ease, background .3s ease;
+  }
+  header.site-nav.is-scrolled{ border-bottom-color:var(--line); background:rgba(11,21,18,0.92); }
+  .nav-inner{
+    max-width:var(--maxw); margin:0 auto; padding:18px 28px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{
+    font-family:'Fraunces',serif; font-weight:700; font-size:20px;
+    display:flex; align-items:center; gap:10px;
+  }
+  .logo .dot{ width:7px;height:7px;border-radius:50%; background:var(--gold); }
+  .nav-links{ display:flex; align-items:center; gap:34px; }
+  .nav-links a{
+    font-size:13.5px; font-weight:600; color:var(--ink-dim);
+    letter-spacing:.02em;
+    position:relative;
+    padding:4px 0;
+    transition:color .25s ease;
+  }
+  .nav-links a::after{
+    content:""; position:absolute; left:0; bottom:-2px; height:1px; width:0;
+    background:var(--gold); transition:width .3s var(--ease);
+  }
+  .nav-links a:hover, .nav-links a.is-active{ color:var(--ink); }
+  .nav-links a:hover::after, .nav-links a.is-active::after{ width:100%; }
+  .nav-cta{ display:flex; align-items:center; gap:14px; }
+  .nav-burger{ display:none; }
+
+  @media (max-width:900px){
+    .nav-links{
+      position:fixed; inset:0 0 0 auto; width:min(78vw,320px); height:100vh;
+      background:var(--bg-alt); border-left:1px solid var(--line);
+      flex-direction:column; justify-content:center; align-items:flex-start;
+      padding:40px; gap:26px;
+      transform:translateX(100%); transition:transform .45s var(--ease);
+      z-index:99;
     }
-
-    #projects .pg-toolbar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin: -10px 0 36px;
+    .nav-links.is-open{ transform:translateX(0); }
+    .nav-links a{ font-size:17px; }
+    .nav-cta .btn-ghost{ display:none; }
+    .nav-burger{
+      display:flex; flex-direction:column; gap:5px; width:26px; z-index:101;
     }
+    .nav-burger span{ height:2px; width:100%; background:var(--ink); transition:transform .3s ease, opacity .3s ease; }
+    .nav-burger.is-open span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
+    .nav-burger.is-open span:nth-child(2){ opacity:0; }
+    .nav-burger.is-open span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); }
+  }
 
-    #projects .pg-toolbar .pg-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 9px 18px;
-      border-radius: 30px;
-      border: 1px solid rgba(0,0,0,.12);
-      background: #fff;
-      font-size: 14px;
-      font-weight: 500;
-      color: #2c2c2c;
-      cursor: pointer;
-      transition: all .25s ease;
-      line-height: 1;
-    }
+  /* ============ 3. HERO ============ */
+  .hero{
+    min-height:100svh;
+    display:flex; flex-direction:column; justify-content:center;
+    padding-top:140px; padding-bottom:80px;
+    position:relative;
+    overflow:hidden;
+    background: image(url('assets/img/banner.png'))
+  }
+  .hero::before{
+    content:"";
+    position:absolute; top:-20%; right:-10%;
+    width:640px; height:640px; border-radius:50%;
+    background:radial-gradient(circle, rgba(51,172,131,0.16), transparent 70%);
+    filter:blur(10px);
+    pointer-events:none;
+  }
+  .hero::after{
+    content:"";
+    position:absolute; bottom:-25%; left:-15%;
+    width:520px; height:520px; border-radius:50%;
+    background:radial-gradient(circle, rgba(231,178,61,0.12), transparent 70%);
+    pointer-events:none;
+  }
+  .hero-inner{ position:relative; z-index:2; }
+  .hero-kicker{
+    display:flex; align-items:center; gap:12px; margin-bottom:28px;
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--jade-soft);
+  }
+  .pulse{ width:8px;height:8px;border-radius:50%; background:var(--jade); position:relative; }
+  .pulse::after{
+    content:""; position:absolute; inset:-6px; border-radius:50%; border:1px solid var(--jade);
+    animation:pulse-ring 2.4s ease-out infinite;
+  }
+  @keyframes pulse-ring{ 0%{ transform:scale(.6); opacity:.9;} 100%{ transform:scale(2.2); opacity:0;} }
 
-    #projects .pg-toolbar .pg-btn:hover {
-      border-color: var(--accent-color, #149ddd);
-      color: var(--accent-color, #149ddd);
-      transform: translateY(-1px);
-      box-shadow: 0 6px 16px rgba(0,0,0,.08);
-    }
+  .hero h1{
+    font-size:clamp(42px, 7.4vw, 92px);
+    line-height:0.98;
+    font-weight:600;
+    max-width:16ch;
+  }
+  .hero h1 em{ font-style:italic; color:var(--gold); font-weight:500; }
 
-    #projects .pg-toolbar .pg-btn.is-active {
-      background: var(--accent-color, #149ddd);
-      border-color: var(--accent-color, #149ddd);
-      color: #fff;
-    }
+  .hero-role{
+    margin-top:26px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:clamp(15px,2vw,19px);
+    color:var(--ink-dim);
+    min-height:1.6em;
+  }
+  .hero-role .role-cursor{ color:var(--gold); }
 
-    #projects .pg-toolbar .pg-btn svg { width: 15px; height: 15px; flex: none; }
+  .hero-lede{
+    margin-top:26px; max-width:560px;
+    font-size:18px; color:var(--ink-dim);
+  }
+  .hero-lede strong{ color:var(--ink); font-weight:700; }
 
-    /* ----- Grid mode (default, shows up to N at once) ----- */
-    #projects .pg-viewport {
-      overflow: hidden;
-      position: relative;
-    }
+  .hero-actions{ margin-top:40px; display:flex; align-items:center; gap:16px; flex-wrap:wrap; }
 
-    #projects .pg-track {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 28px;
-      transition: none;
-    }
+  .hero-socials{ margin-top:52px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .social-link{
+    width:42px; height:42px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    border:1px solid var(--line-strong);
+    color:var(--ink-dim);
+    transition:all .3s var(--ease);
+  }
+  .social-link:hover{ border-color:var(--gold); color:var(--gold); transform:translateY(-4px); }
+  .social-link svg{ width:18px; height:18px; }
 
-    #projects.pg-scroll-mode .pg-track {
-      display: flex;
-      gap: 24px;
-      overflow-x: auto;
-      scroll-behavior: smooth;
-      scroll-snap-type: x proximity;
-      padding-bottom: 14px;
-      -ms-overflow-style: none;
-    }
+  .hero-stats{
+    margin-top:80px;
+    display:grid; grid-template-columns:repeat(4,1fr);
+    border-top:1px solid var(--line);
+    padding-top:34px;
+  }
+  .hero-stats .stat{ padding-right:20px; }
+  .hero-stats .stat b{
+    display:block; font-family:'Fraunces',serif; font-size:clamp(26px,3.6vw,38px); font-weight:600; color:var(--gold-soft);
+  }
+  .hero-stats .stat span{ display:block; margin-top:6px; font-size:13px; color:var(--ink-faint); }
+  @media (max-width:780px){ .hero-stats{ grid-template-columns:repeat(2,1fr); row-gap:26px; } }
 
-    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar { height: 8px; }
-    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-track { background: rgba(0,0,0,.05); border-radius: 10px; }
-    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-thumb { background: rgba(0,0,0,.22); border-radius: 10px; }
-    #projects.pg-scroll-mode .pg-track::-webkit-scrollbar-thumb:hover { background: var(--accent-color, #149ddd); }
+  /* reveal-on-scroll */
+  .reveal{ opacity:0; transform:translateY(26px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+  .reveal.is-in{ opacity:1; transform:translateY(0); }
+  .reveal-d1{ transition-delay:.08s; } .reveal-d2{ transition-delay:.16s; } .reveal-d3{ transition-delay:.24s; } .reveal-d4{ transition-delay:.32s; }
 
-    #projects.pg-scroll-mode .project-card {
-      flex: 0 0 320px;
-      scroll-snap-align: start;
-    }
+  /* ============ 3b. MARQUEE BANNER ============ */
+  .marquee-banner{
+    position:relative;
+    background:var(--gold);
+    color:#171009;
+    padding:14px 0;
+    overflow:hidden;
+    white-space:nowrap;
+    display:flex;
+    border-top:1px solid rgba(0,0,0,.08);
+    border-bottom:1px solid rgba(0,0,0,.08);
+  }
+  .marquee-track{
+    display:inline-flex;
+    align-items:center;
+    flex-shrink:0;
+    animation:marquee-scroll 26s linear infinite;
+  }
+  .marquee-banner:hover .marquee-track{ animation-play-state:paused; }
+  .marquee-track span{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:14px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    padding:0 18px;
+  }
+  .marquee-track .mq-sep{ padding:0; font-size:12px; opacity:.65; }
+  @keyframes marquee-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-100%); } }
+  @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
 
-    #projects .pg-nav {
-      display: none;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 18px;
-    }
+  /* ============ 3c. HIGHLIGHT BAND ============ */
+  .highlight-band{ padding:64px 0; }
+  .highlight-card{
+    border:1px solid var(--line); border-radius:var(--radius);
+    background:linear-gradient(120deg, rgba(51,172,131,.09), rgba(231,178,61,.06));
+    padding:36px 40px;
+    display:flex; align-items:center; gap:28px; flex-wrap:wrap;
+  }
+  .highlight-card .hl-icon{
+    flex:none; width:56px; height:56px; border-radius:16px;
+    background:rgba(231,178,61,.12); color:var(--gold);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .highlight-card .hl-icon svg{ width:26px; height:26px; }
+  .highlight-card .hl-copy{ flex:1; min-width:260px; }
+  .hl-eyebrow{
+    font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase;
+    letter-spacing:.14em; color:var(--jade-soft); display:block; margin-bottom:6px;
+  }
+  .highlight-card h3{ font-size:22px; margin-bottom:8px; }
+  .highlight-card h3 span{ color:var(--gold); font-style:italic; font-weight:500; }
+  .highlight-card p{ color:var(--ink-dim); font-size:15px; max-width:560px; }
+  .hl-cta{ flex:none; }
+  .hl-cta svg{ width:15px; height:15px; }
+  @media (max-width:700px){ .highlight-card{ padding:28px; } }
 
-    #projects.pg-scroll-mode .pg-nav { display: flex; }
+  /* ============ 4. ABOUT ============ */
+  .about-grid{
+    display:grid; grid-template-columns:0.8fr 1.2fr; gap:70px; align-items:start;
+  }
+  @media (max-width:860px){ .about-grid{ grid-template-columns:1fr; gap:44px; } }
 
-    #projects .pg-nav button {
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      border: 1px solid rgba(0,0,0,.12);
-      background: #fff;
-      color: #2c2c2c;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all .25s ease;
-    }
+  .avatar-card{
+    position:relative;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    background:linear-gradient(160deg, var(--bg-elevated), var(--bg-alt));
+    aspect-ratio:4/5;
+    display:flex; align-items:center; justify-content:center;
+    overflow:hidden;
+  }
+  .avatar-card .weave-bg{ opacity:.7; }
+  .avatar-card img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+  .avatar-fallback{
+    position:relative; z-index:1;
+    font-family:'Fraunces',serif; font-size:88px; font-weight:600; color:var(--gold);
+    letter-spacing:-.02em;
+  }
+  .avatar-tag{
+    position:absolute; left:18px; bottom:18px; z-index:2;
+    background:rgba(11,21,18,0.82); backdrop-filter:blur(6px);
+    border:1px solid var(--line-strong); border-radius:100px;
+    padding:9px 16px; font-size:12.5px; font-family:'JetBrains Mono',monospace;
+    display:flex; align-items:center; gap:8px; color:var(--ink-dim);
+  }
 
-    #projects .pg-nav button:hover {
-      background: var(--accent-color, #149ddd);
-      border-color: var(--accent-color, #149ddd);
-      color: #fff;
-      transform: translateY(-2px);
-    }
+  .about-copy h3{ font-size:clamp(24px,3vw,30px); margin-bottom:20px; }
+  .about-copy p{ color:var(--ink-dim); font-size:16px; margin-bottom:16px; }
+  .about-copy p strong{ color:var(--ink); }
 
-    #projects .pg-nav button svg { width: 18px; height: 18px; }
+  .about-facts{
+    margin-top:32px; display:grid; grid-template-columns:1fr 1fr; gap:18px 30px;
+    padding-top:28px; border-top:1px solid var(--line);
+  }
+  .about-facts dt{ font-family:'JetBrains Mono',monospace; font-size:11.5px; text-transform:uppercase; letter-spacing:.1em; color:var(--ink-faint); margin-bottom:6px; }
+  .about-facts dd{ margin:0; font-size:15px; font-weight:600; }
+  .about-facts dd a:hover{ color:var(--gold); }
 
-    #projects .pg-nav .pg-dots {
-      display: flex;
-      gap: 7px;
-    }
+  .lang-row{ margin-top:32px; display:flex; gap:26px; flex-wrap:wrap; }
+  .lang-item{ display:flex; flex-direction:column; gap:8px; }
+  .lang-item .lname{ font-size:14px; font-weight:700; }
+  .lang-dots{ display:flex; gap:5px; }
+  .lang-dots i{ width:16px; height:5px; border-radius:3px; background:var(--line-strong); }
+  .lang-dots i.on{ background:var(--jade); }
 
-    #projects .pg-nav .pg-dots span {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(0,0,0,.18);
-      transition: all .3s ease;
-    }
+  /* ============ 5. TIMELINE ============ */
+  .timeline{ position:relative; margin-top:10px; }
+  .timeline::before{
+    content:""; position:absolute; left:19px; top:6px; bottom:6px; width:1px;
+    background:linear-gradient(var(--line-strong), var(--line) 85%, transparent);
+  }
+  @media (max-width:640px){ .timeline::before{ left:13px; } }
 
-    #projects .pg-nav .pg-dots span.is-active {
-      background: var(--accent-color, #149ddd);
-      width: 22px;
-      border-radius: 4px;
-    }
+  .tl-item{ position:relative; padding-left:64px; padding-bottom:46px; }
+  .tl-item:last-child{ padding-bottom:0; }
+  @media (max-width:640px){ .tl-item{ padding-left:44px; } }
 
-    /* ----- Project card ----- */
-    #projects .project-card {
-      position: relative;
-      background: #fff;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 6px 24px rgba(20, 20, 30, .06);
-      transition: transform .45s cubic-bezier(.22,1,.36,1), box-shadow .45s ease;
-      will-change: transform;
-      opacity: 0;
-      transform: translateY(28px);
-    }
+  .tl-dot{
+    position:absolute; left:10px; top:4px;
+    width:20px; height:20px; border-radius:50%;
+    background:var(--bg); border:1px solid var(--gold);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .tl-dot::after{ content:""; width:7px; height:7px; border-radius:50%; background:var(--gold); }
+  @media (max-width:640px){ .tl-dot{ left:4px; width:18px; height:18px; } }
 
-    #projects .project-card.pg-in {
-      opacity: 1;
-      transform: translateY(0);
-    }
+  .tl-date{
+    font-family:'JetBrains Mono',monospace; font-size:12px; letter-spacing:.06em;
+    color:var(--gold-soft); text-transform:uppercase; margin-bottom:8px; display:inline-block;
+  }
+  .tl-item h4{ font-size:19px; font-weight:600; margin-bottom:4px; }
+  .tl-item .tl-org{ font-size:14px; color:var(--jade-soft); font-weight:700; margin-bottom:10px; display:block; }
+  .tl-item p{ color:var(--ink-dim); font-size:15px; max-width:640px; }
 
-    #projects .project-card:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 22px 40px rgba(20, 20, 30, .14);
-    }
+  .edu-cards{ margin-top:56px; display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+  @media (max-width:640px){ .edu-cards{ grid-template-columns:1fr; } }
+  .edu-card{
+    border:1px solid var(--line); border-radius:var(--radius-sm); padding:22px;
+    background:var(--card);
+  }
+  .edu-card .tl-date{ margin-bottom:10px; }
+  .edu-card h4{ font-size:16.5px; margin-bottom:6px; }
+  .edu-card p{ color:var(--ink-dim); font-size:14px; }
+  .edu-card .mention{
+    margin-top:10px; display:inline-block; font-size:11.5px; font-family:'JetBrains Mono',monospace;
+    color:var(--gold); border:1px solid rgba(231,178,61,.35); border-radius:100px; padding:4px 10px;
+  }
 
-    #projects .project-card.pg-dragging {
-      opacity: .35;
-    }
+  /* ============ 6. SKILLS ============ */
+  .skill-groups{ display:grid; grid-template-columns:repeat(3,1fr); gap:28px; }
+  @media (max-width:900px){ .skill-groups{ grid-template-columns:1fr; } }
+  .skill-group{
+    border:1px solid var(--line); border-radius:var(--radius); padding:28px;
+    background:linear-gradient(165deg, var(--bg-elevated), transparent);
+  }
+  .skill-group .sg-icon{
+    width:38px; height:38px; border-radius:10px;
+    display:flex; align-items:center; justify-content:center;
+    background:rgba(231,178,61,.1); color:var(--gold); margin-bottom:18px;
+  }
+  .skill-group .sg-icon svg{ width:19px; height:19px; }
+  .skill-group h3{ font-size:18px; margin-bottom:6px; }
+  .skill-group .sg-sub{ font-size:13.5px; color:var(--ink-faint); margin-bottom:20px; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:9px; }
+  .chip{
+    font-size:13px; font-weight:600; padding:8px 14px; border-radius:100px;
+    border:1px solid var(--line-strong); color:var(--ink-dim);
+    transition:all .25s ease;
+  }
+  /* .skill-group:hover .chip{ } */
+  .chip:hover{ border-color:var(--jade); color:var(--jade-soft); }
 
-    #projects .project-card.pg-drag-over {
-      outline: 2px dashed var(--accent-color, #149ddd);
-      outline-offset: 4px;
-    }
+  /* ============ 7. DISTINCTIONS ============ */
+  .dist-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:900px){ .dist-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:600px){ .dist-grid{ grid-template-columns:1fr; } }
+  .dist-card{
+    grid-column:span 1;
+    border:1px solid var(--line); border-radius:var(--radius); padding:28px;
+    position:relative; overflow:hidden;
+    background:var(--card);
+    transition:transform .4s var(--ease), border-color .3s ease, background .3s ease;
+  }
+  .dist-card:hover{ transform:translateY(-6px); border-color:rgba(231,178,61,.4); background:var(--card-hover); }
+  .dist-card.is-lg{ grid-column:span 2; }
+  @media (max-width:900px){ .dist-card.is-lg{ grid-column:span 2; } }
+  @media (max-width:600px){ .dist-card.is-lg{ grid-column:span 1; } }
+  .dist-num{
+    font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--rust-soft);
+    margin-bottom:16px; display:block;
+  }
+  .dist-card h4{ font-size:18px; margin-bottom:10px; line-height:1.3; }
+  .dist-card p{ color:var(--ink-dim); font-size:14px; }
+  .dist-card .dist-link{
+    margin-top:16px; display:inline-flex; align-items:center; gap:7px;
+    font-size:12.5px; font-weight:700; color:var(--gold);
+  }
+  .dist-card .dist-link svg{ width:13px; height:13px; transition:transform .25s ease; }
+  .dist-card .dist-link:hover svg{ transform:translate(2px,-2px); }
 
-    /* Drag handle — only visible in edit mode */
-    #projects .pg-drag-handle {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: rgba(20,20,30,.55);
-      backdrop-filter: blur(4px);
-      color: #fff;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: grab;
-      z-index: 5;
-      opacity: 0;
-      transition: opacity .2s ease;
-    }
+  /* ---- Adaptive image gallery (mosaic) — used in distinction cards ---- */
+  .gal-mosaic{
+    margin-top:18px; border-radius:12px; overflow:hidden;
+    display:grid; gap:4px;
+  }
+  .gal-mosaic .gal-tile{
+    position:relative; overflow:hidden; cursor:pointer;
+    background:var(--bg-elevated);
+  }
+  .gal-mosaic .gal-tile img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    transition:transform .5s var(--ease);
+  }
+  .gal-mosaic .gal-tile:hover img{ transform:scale(1.06); }
+  .gal-mosaic .gal-tile .gal-more{
+    position:absolute; inset:0; background:rgba(11,21,18,.72);
+    display:flex; align-items:center; justify-content:center;
+    color:var(--ink); font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
+  }
+  /* layouts by count, via data-count on .gal-mosaic */
+  .gal-mosaic[data-count="1"]{ grid-template-columns:1fr; }
+  .gal-mosaic[data-count="1"] .gal-tile{ aspect-ratio:16/9; }
+  .gal-mosaic[data-count="2"]{ grid-template-columns:1fr 1fr; }
+  .gal-mosaic[data-count="2"] .gal-tile{ aspect-ratio:4/3; }
+  .gal-mosaic[data-count="3"]{ grid-template-columns:1.3fr 1fr; grid-template-rows:1fr 1fr; }
+  .gal-mosaic[data-count="3"] .gal-tile:nth-child(1){ grid-row:1 / 3; }
+  .gal-mosaic[data-count="3"] .gal-tile{ aspect-ratio:auto; }
+  .gal-mosaic[data-count="4"]{ grid-template-columns:1fr 1fr; }
+  .gal-mosaic[data-count="4"] .gal-tile{ aspect-ratio:4/3; }
+  .gal-mosaic[data-count="gt4"]{ grid-template-columns:1fr 1fr 1fr; }
+  .gal-mosaic[data-count="gt4"] .gal-tile{ aspect-ratio:1/1; }
 
-    #projects.pg-edit-mode .pg-drag-handle {
-      display: flex;
-      opacity: 1;
-    }
+  /* ---- Placeholder tile (image not found yet) ---- */
+  .gal-tile.is-empty{
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+    color:var(--ink-faint); font-family:'JetBrains Mono',monospace; font-size:10.5px; text-align:center; padding:10px;
+    background:repeating-linear-gradient(135deg, var(--bg-elevated), var(--bg-elevated) 8px, var(--bg-alt) 8px, var(--bg-alt) 16px);
+  }
+  .gal-tile.is-empty svg{ width:18px; height:18px; opacity:.6; }
 
-    #projects .pg-drag-handle svg { width: 16px; height: 16px; }
-    #projects .pg-drag-handle:active { cursor: grabbing; }
+  /* ---- Lightbox (shared, site-wide) ---- */
+  .lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(6,10,8,.92); backdrop-filter:blur(6px);
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transition:opacity .3s ease;
+    padding:60px 24px;
+  }
+  .lightbox.is-open{ opacity:1; pointer-events:auto; }
+  .lightbox figure{ margin:0; max-width:min(880px,92vw); max-height:80vh; text-align:center; }
+  .lightbox img{ max-width:100%; max-height:80vh; border-radius:12px; object-fit:contain; box-shadow:var(--shadow); }
+  .lightbox figcaption{ margin-top:14px; font-size:13px; color:var(--ink-dim); font-family:'JetBrains Mono',monospace; }
+  .lightbox .lb-close, .lightbox .lb-prev, .lightbox .lb-next{
+    position:absolute; width:46px; height:46px; border-radius:50%;
+    background:rgba(255,255,255,.06); border:1px solid var(--line-strong); color:var(--ink);
+    display:flex; align-items:center; justify-content:center; transition:all .25s ease;
+  }
+  .lightbox .lb-close:hover, .lightbox .lb-prev:hover, .lightbox .lb-next:hover{ background:var(--gold); border-color:var(--gold); color:#171009; }
+  .lightbox .lb-close{ top:20px; right:20px; }
+  .lightbox .lb-prev{ left:20px; top:50%; transform:translateY(-50%); }
+  .lightbox .lb-next{ right:20px; top:50%; transform:translateY(-50%); }
+  .lightbox .lb-close svg, .lightbox .lb-prev svg, .lightbox .lb-next svg{ width:18px; height:18px; }
+  @media (max-width:640px){
+    .lightbox .lb-prev{ left:8px; } .lightbox .lb-next{ right:8px; } .lightbox .lb-close{ top:10px; right:10px; }
+  }
 
-    /* Cover-image change button — only visible in edit mode */
-    #projects .pg-edit-cover {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      width: 32px;
-      height: 32px;
-      border-radius: 9px;
-      background: rgba(20,20,30,.55);
-      backdrop-filter: blur(4px);
-      color: #fff;
-      border: none;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      z-index: 5;
-      transition: background .2s ease;
-    }
+  /* ============ 8. ENGAGEMENT ============ */
+  .engage-grid{ display:grid; grid-template-columns:1.1fr 0.9fr; gap:60px; align-items:start; }
+  @media (max-width:860px){ .engage-grid{ grid-template-columns:1fr; gap:40px; } }
+  .engage-list{ display:flex; flex-direction:column; gap:26px; }
+  .engage-item{ display:flex; gap:18px; }
+  .engage-item .e-mark{
+    flex:none; width:38px; height:38px; border-radius:10px; margin-top:2px;
+    background:rgba(51,172,131,.12); color:var(--jade-soft);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .engage-item .e-mark svg{ width:18px; height:18px; }
+  .engage-item h4{ font-size:16px; margin-bottom:6px; }
+  .engage-item p{ font-size:14.5px; color:var(--ink-dim); }
 
-    #projects.pg-edit-mode .pg-edit-cover { display: flex; }
-    #projects .pg-edit-cover:hover { background: var(--accent-color, #149ddd); }
-    #projects .pg-edit-cover svg { width: 15px; height: 15px; }
+  .quote-card{
+    border:1px solid var(--line); border-radius:var(--radius); padding:36px;
+    background:linear-gradient(160deg, rgba(231,178,61,.08), transparent);
+  }
+  .quote-card p{ font-family:'Fraunces',serif; font-style:italic; font-size:21px; line-height:1.5; color:var(--ink); }
+  .quote-card .qmark{ font-size:44px; color:var(--gold); line-height:1; font-family:'Fraunces',serif; }
+  .quote-card footer{ margin-top:22px; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--ink-faint); }
 
-    /* Cover media area */
-    #projects .pg-cover {
-      position: relative;
-      width: 100%;
-      aspect-ratio: 16 / 10;
-      overflow: hidden;
-      background: linear-gradient(135deg, #eef3f7 0%, #e3eaf0 100%);
-    }
+  /* ============ 9. PROJECTS ============ */
+  .filter-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; }
+  .filter-btn{
+    padding:9px 18px; border-radius:100px; border:1px solid var(--line-strong);
+    font-size:13px; font-weight:700; color:var(--ink-dim);
+    transition:all .25s ease;
+  }
+  .filter-btn.is-active, .filter-btn:hover{ background:var(--gold); border-color:var(--gold); color:#171009; }
 
-    #projects .pg-cover img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-      transition: transform .6s cubic-bezier(.22,1,.36,1);
-    }
+  .proj-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+  @media (max-width:960px){ .proj-grid{ grid-template-columns:1fr 1fr; } }
+  @media (max-width:640px){ .proj-grid{ grid-template-columns:1fr; } }
 
-    #projects .project-card:hover .pg-cover img {
-      transform: scale(1.07);
-    }
+  .proj-card{
+    border:1px solid var(--line); border-radius:var(--radius); overflow:hidden;
+    background:var(--card);
+    display:flex; flex-direction:column; height:100%;
+    transition:transform .4s var(--ease), border-color .3s ease, background .3s ease;
+  }
+  .proj-card:hover{ transform:translateY(-6px); border-color:var(--line-strong); background:var(--card-hover); }
+  .proj-body{ padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
+  .proj-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
 
-    /* Live-site preview (deployed projects) */
-    #projects .pg-cover .pg-live-frame-wrap {
-      position: absolute;
-      inset: 0;
-      overflow: hidden;
-    }
+  /* ---- Cover: live iframe preview / image carousel / placeholder ---- */
+  .proj-cover{
+    position:relative; width:100%; aspect-ratio:16/10; overflow:hidden;
+    background:linear-gradient(135deg, var(--bg-elevated), var(--bg-alt));
+    flex:none;
+  }
+  .proj-cover .pc-frame-wrap{ position:absolute; inset:0; overflow:hidden; }
+  .proj-cover iframe{
+    position:absolute; top:0; left:0; width:250%; height:250%;
+    transform:scale(.4); transform-origin:top left; border:0; pointer-events:none; background:#fff;
+  }
+  .proj-cover::after{
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(11,21,18,0) 40%, rgba(11,21,18,.75) 100%);
+    opacity:0; transition:opacity .4s ease; pointer-events:none;
+  }
+  .proj-card:hover .proj-cover::after{ opacity:1; }
+  .proj-cover .pc-live-badge{
+    position:absolute; bottom:12px; left:14px; z-index:3;
+    display:inline-flex; align-items:center; gap:6px;
+    padding:5px 11px; border-radius:30px; background:rgba(11,21,18,.85); backdrop-filter:blur(4px);
+    font-size:10.5px; font-weight:700; letter-spacing:.05em; text-transform:uppercase; color:var(--ink);
+    opacity:0; transform:translateY(6px); transition:all .35s ease;
+  }
+  .proj-card:hover .pc-live-badge{ opacity:1; transform:translateY(0); }
+  .pc-live-badge .pc-dot{ width:6px; height:6px; border-radius:50%; background:var(--jade); position:relative; }
+  .pc-live-badge .pc-dot::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--jade); animation:pulse-ring 2.2s ease-out infinite; }
 
-    #projects .pg-cover iframe {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 250%;
-      height: 250%;
-      transform: scale(.4);
-      transform-origin: top left;
-      border: 0;
-      pointer-events: none;
-      background: #fff;
-    }
+  /* placeholder cover (no live url, no gallery) */
+  .pc-placeholder{
+    position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
+    color:var(--ink-faint);
+  }
+  .pc-placeholder .pc-glyph{ font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:700; color:var(--ink-dim); }
+  .pc-placeholder .pc-mono{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; opacity:.7; }
 
-    /* Soft gradient overlay for legibility + premium feel */
-    #projects .pg-cover::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(180deg, rgba(10,12,20,0) 45%, rgba(10,12,20,.65) 100%);
-      opacity: 0;
-      transition: opacity .4s ease;
-      pointer-events: none;
-    }
+  /* image carousel cover (gallery, no live url) */
+  .pc-carousel{ position:absolute; inset:0; }
+  .pc-carousel .pc-slide{
+    position:absolute; inset:0; opacity:0; transition:opacity .5s ease;
+  }
+  .pc-carousel .pc-slide.is-active{ opacity:1; }
+  .pc-carousel img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .pc-carousel .pc-dots{
+    position:absolute; bottom:12px; left:0; right:0; z-index:3;
+    display:flex; align-items:center; justify-content:center; gap:5px;
+  }
+  .pc-carousel .pc-dots span{ width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.4); transition:all .25s ease; }
+  .pc-carousel .pc-dots span.is-active{ background:var(--gold); width:16px; border-radius:3px; }
+  .proj-cover .pc-badge{
+    position:absolute; top:12px; right:14px; z-index:3;
+    font-size:10px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+    padding:4px 10px; border-radius:30px; background:rgba(11,21,18,.7); backdrop-filter:blur(4px); color:var(--ink-dim);
+  }
+  .pc-carousel .pc-arrow{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:3;
+    width:30px; height:30px; border-radius:50%; background:rgba(11,21,18,.6); color:#fff;
+    display:flex; align-items:center; justify-content:center; opacity:0; transition:all .25s ease;
+  }
+  .proj-card:hover .pc-carousel .pc-arrow{ opacity:1; }
+  .pc-carousel .pc-arrow:hover{ background:var(--gold); color:#171009; }
+  .pc-carousel .pc-arrow.pc-prev{ left:10px; } .pc-carousel .pc-arrow.pc-next{ right:10px; }
+  .pc-carousel .pc-arrow svg{ width:14px; height:14px; }
+  .proj-lang{ display:flex; align-items:center; gap:7px; font-size:12px; color:var(--ink-faint); font-family:'JetBrains Mono',monospace; }
+  .proj-lang i{ width:9px; height:9px; border-radius:50%; display:inline-block; }
+  .proj-badge{
+    font-size:10.5px; font-family:'JetBrains Mono',monospace; letter-spacing:.05em;
+    padding:3px 9px; border-radius:100px; border:1px solid var(--line-strong); color:var(--ink-faint);
+  }
+  .proj-card h4{ font-size:17px; margin-bottom:8px; }
+  .proj-card p{ font-size:14px; color:var(--ink-dim); flex:1; margin-bottom:18px; }
+  .proj-links{ display:flex; gap:10px; flex-wrap:wrap; }
+  .proj-link{
+    font-size:12.5px; font-weight:700; display:inline-flex; align-items:center; gap:6px;
+    padding:7px 13px; border-radius:100px; border:1px solid var(--line-strong); color:var(--ink-dim);
+    transition:all .25s ease;
+  }
+  .proj-link:hover{ border-color:var(--gold); color:var(--gold); }
+  .proj-link svg{ width:13px; height:13px; }
+  .proj-card[data-cat="service"]{ background:linear-gradient(160deg, rgba(51,172,131,.06), transparent); }
 
-    #projects .project-card:hover .pg-cover::after { opacity: 1; }
+  .proj-more{ text-align:center; margin-top:44px; }
 
-    /* Placeholder (no live preview / no custom image) */
-    #projects .pg-placeholder {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      gap: 6px;
-      color: #5b6b78;
-    }
+  /* ============ 10. CONTACT ============ */
+  .contact-box{
+    border:1px solid var(--line); border-radius:24px; padding:clamp(36px,6vw,72px);
+    position:relative; overflow:hidden;
+    background:linear-gradient(150deg, var(--bg-elevated), var(--bg-alt));
+  }
+  .contact-box .weave-bg{ opacity:.5; }
+  .contact-inner{ position:relative; z-index:1; text-align:center; max-width:640px; margin:0 auto; }
+  .contact-inner h2{ font-size:clamp(30px,5vw,50px); }
+  .contact-inner p.lede{ margin-top:18px; color:var(--ink-dim); font-size:17px; }
+  .contact-actions{ margin-top:38px; display:flex; align-items:center; justify-content:center; gap:16px; flex-wrap:wrap; }
+  .contact-socials{ margin-top:48px; display:flex; align-items:center; justify-content:center; gap:18px; flex-wrap:wrap; }
 
-    #projects .pg-placeholder .pg-mono {
-      font-family: 'Roboto Mono', 'Courier New', monospace;
-      font-size: 12px;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      opacity: .55;
-    }
+  footer.site-footer{
+    padding:40px 0 50px;
+    display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px;
+    border-top:1px solid var(--line); margin-top:0;
+  }
+  footer.site-footer .fl{ font-size:13px; color:var(--ink-faint); }
+  footer.site-footer .fr{ display:flex; gap:22px; }
+  footer.site-footer a{ font-size:13px; color:var(--ink-faint); transition:color .25s ease; }
+  footer.site-footer a:hover{ color:var(--gold); }
 
-    #projects .pg-placeholder .pg-glyph {
-      font-size: 30px;
-      font-weight: 700;
-      letter-spacing: -.02em;
-      color: #3a4750;
-    }
+  .to-top{
+    position:fixed; right:24px; bottom:24px; z-index:90;
+    width:46px; height:46px; border-radius:50%;
+    background:var(--gold); color:#171009;
+    display:flex; align-items:center; justify-content:center;
+    opacity:0; pointer-events:none; transform:translateY(10px);
+    transition:all .35s var(--ease);
+    box-shadow:var(--shadow);
+  }
+  .to-top.is-visible{ opacity:1; pointer-events:auto; transform:translateY(0); }
+  .to-top svg{ width:18px; height:18px; }
 
-    /* Live badge */
-    #projects .pg-badge {
-      position: absolute;
-      bottom: 12px;
-      left: 14px;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 11px;
-      border-radius: 30px;
-      background: rgba(255,255,255,.92);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: #2c2c2c;
-      z-index: 3;
-      transform: translateY(6px);
-      opacity: 0;
-      transition: all .35s ease;
-    }
-
-    #projects .project-card:hover .pg-badge {
-      transform: translateY(0);
-      opacity: 1;
-    }
-
-    #projects .pg-badge .pg-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: #2ecc71;
-      box-shadow: 0 0 0 0 rgba(46,204,113,.6);
-      animation: pgPulse 2s infinite;
-    }
-
-    @keyframes pgPulse {
-      0%   { box-shadow: 0 0 0 0 rgba(46,204,113,.55); }
-      70%  { box-shadow: 0 0 0 6px rgba(46,204,113,0); }
-      100% { box-shadow: 0 0 0 0 rgba(46,204,113,0); }
-    }
-
-    /* Visibility badge (private repo) */
-    #projects .pg-vis {
-      position: absolute;
-      bottom: 12px;
-      right: 14px;
-      padding: 4px 10px;
-      border-radius: 30px;
-      background: rgba(20,20,30,.55);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 600;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      z-index: 3;
-      backdrop-filter: blur(3px);
-    }
-
-    /* Info block */
-    #projects .project-info {
-      padding: 22px 22px 24px;
-    }
-
-    #projects .project-info .pg-meta {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 8px;
-    }
-
-    #projects .project-info .pg-lang {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: #6c7a86;
-      font-weight: 500;
-    }
-
-    #projects .project-info .pg-lang .pg-lang-dot {
-      width: 9px;
-      height: 9px;
-      border-radius: 50%;
-      flex: none;
-    }
-
-    #projects .project-info h4 {
-      margin: 0 0 8px;
-      font-size: 19px;
-      font-weight: 700;
-      color: #1f2a33;
-    }
-
-    #projects .project-info p {
-      font-size: 14.5px;
-      line-height: 1.65;
-      color: #6c7a86;
-      margin: 0 0 16px;
-      min-height: 44px;
-    }
-
-    #projects .project-info .read-more {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 14px;
-      font-weight: 600;
-    }
-
-    /* Edit panel (per-card) for swapping the cover image */
-    #projects .pg-cover-input {
-      position: absolute;
-      inset: 0;
-      width: 100%;
-      height: 100%;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    /* Reset toast */
-    #projects .pg-toast {
-      position: fixed;
-      left: 50%;
-      bottom: 30px;
-      transform: translate(-50%, 20px);
-      background: #1f2a33;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 30px;
-      font-size: 14px;
-      box-shadow: 0 12px 30px rgba(0,0,0,.25);
-      z-index: 9999;
-      opacity: 0;
-      pointer-events: none;
-      transition: all .35s cubic-bezier(.22,1,.36,1);
-    }
-
-    #projects .pg-toast.is-visible {
-      opacity: 1;
-      transform: translate(-50%, 0);
-    }
-
-    @media (max-width: 1199px) {
-      #projects .pg-track { grid-template-columns: repeat(2, 1fr); }
-    }
-
-    @media (max-width: 767px) {
-      #projects .pg-track { grid-template-columns: 1fr; }
-      #projects.pg-scroll-mode .project-card { flex: 0 0 78vw; }
-      #projects .pg-toolbar { margin-bottom: 26px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      #projects .project-card,
-      #projects .pg-cover img,
-      #projects .pg-badge,
-      #projects .pg-toast {
-        transition: none !important;
-        animation: none !important;
-      }
-      #projects .project-card { opacity: 1 !important; transform: none !important; }
-    }
-  </style>
-
-
+  :focus-visible{ outline:2px solid var(--gold); outline-offset:3px; }
+</style>
 </head>
-
-<!--Start of Tawk.to Script-->
-<!-- <script type="text/javascript">
-  var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-  (function () {
-    var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/683416ebfaf85f190c60ac28/1is5nj2eq';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
-  })();
-</script> -->
-<!--End of Tawk.to Script-->
-
 <body>
 
-  <!-- ======= Mobile nav toggle button ======= -->
-  <i class="bi bi-list mobile-nav-toggle d-xl-none"></i>
-
-  <!-- ======= Header ======= -->
-  <header id="header">
-    <div class="d-flex flex-column">
-
-      <div class="profile">
-        <img src="assets/img/profile.jpeg" alt="" class="img  rounded-circle" style="width: 150px; height : 150px">
-        <h1 class="text-light"><a href="index.html">Hafiz MOUSTAPHA</a></h1>
-        <div class="social-links mt-3 text-center">
-          <a href="https://wa.me/61648007" class="twitter"><i class="bx bxl-whatsapp"></i></a>
-          <a href="https://www.facebook.com/Abdulo64" class="facebook"><i class="bx bxl-facebook"></i></a>
-          <a href="https://www.youtube.com/@seniormood_dev" class="youtube"><i class="bx bxl-youtube"></i></a>
-          <!-- <a href="https://www.instagram.com/abdulmoustapha64?igsh=YzljYTk1ODg3Zg==" class="instagram"><i class="bx bxl-instagram"></i></a> -->
-          <a href="https://github.com/AbdulHafizMous" class="google-plus"><i class="bx bxl-github"></i></a>
-          <a href=" https://www.linkedin.com/in/abdul-moustapha-04b92b24b?" class="linkedin"><i
-              class="bx bxl-linkedin"></i></a>
-        </div>
-      </div>
-
-      <nav id="navbar" class="nav-menu navbar">
-        <ul>
-          <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Accueil</span></a></li>
-          <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>A propos</span></a></li>
-          <li><a href="#cv" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Curriculum Vitae</span></a>
-          </li>
-          <li><a href="#competences" class="nav-link scrollto"><i class="bx bx-book-content"></i>
-              <span>Compétences</span></a></li>
-          <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li>
-          <li><a href="#projects" class="nav-link scrollto"><i class="bx bx-grid-alt"></i> <span>Projets</span></a></li>
-          <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li>
-        </ul>
-      </nav><!-- .nav-menu -->
+<header class="site-nav" id="siteNav">
+  <div class="nav-inner">
+    <a href="#hero" class="logo"><span class="dot"></span>Hafiz MOUSTAPHA</a>
+    <nav class="nav-links" id="navLinks">
+      <a href="#about" class="nav-link">À propos</a>
+      <a href="#parcours" class="nav-link">Parcours</a>
+      <a href="#competences" class="nav-link">Compétences</a>
+      <a href="#projets" class="nav-link">Projets</a>
+      <a href="#distinctions" class="nav-link">Distinctions</a>
+      <a href="#contact" class="nav-link">Contact</a>
+    </nav>
+    <div class="nav-cta">
+      <!-- <a href="assets/cv_2p_fr.pdf" download class="btn btn-ghost btn-sm">Télécharger le CV</a> -->
+      <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
-  </header><!-- End Header -->
+  </div>
+</header>
 
-  <!-- ======= Hero Section ======= -->
-  <section id="hero" class="d-flex flex-column justify-content-center align-items-center">
-    <div class="hero-container" data-aos="fade-in">
-      <!-- <h1>A. Hafiz A. E. MOUSTAPHA</h1> -->
-      <p>Je suis un <span class="typed"
-          data-typed-items="Analyste Programmeur., Activiste - Militant., Freelancer - Innovateur.,"></span>
+<main id="main">
+
+  <!-- ===================== HERO ===================== -->
+  <section id="hero" class="hero">
+    <div class="wrap hero-inner">
+      <div class="hero-kicker reveal is-in"><span class="pulse"></span>  — Ouvert aux missions freelance</div>
+      <h1 class="reveal is-in">Hafiz MOUSTAPHA —<br><!-- je conçois des produits <em>numériques durables.</em> --></h1>
+      <p class="hero-role reveal is-in reveal-d1"><span id="typedRole"></span><span class="role-cursor">|</span></p>
+      <p class="hero-lede reveal is-in reveal-d2">
+        Développeur Full-Stack orienté mobile, diplômé <strong>Mention Très Bien</strong> en Analyse et Programmation Informatique (ENEAM).
+        Je construis des applications web, mobiles et des systèmes d'automatisation pour des entreprises, des institutions publiques et des causes sociales — du prototype à la mise en production.
       </p>
-    </div>
-  </section><!-- End Hero -->
-
-  <main id="main">
-
-    <!-- ======= About Section ======= -->
-    <section id="about" class="about">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>A propos</h2>
-          <p>Aujourd'hui Entrepreneur, Innovateur, Freelancer, Analyste Programmeur chevronné et Activiste
-            influent, titulaire d'une LP en Analyse et Programmation informatique.
-          </p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-4" data-aos="fade-right">
-            <img src="assets/img/profile.jpeg" class="img-fluid rounded-circle" alt="">
-          </div>
-          <div class="col-lg-8 pt-4 pt-lg-0 content" data-aos="fade-left">
-            <h3> Overview &amp; Bio.</h3>
-            <p class="fst-italic">
-              Informations Elémentaires.
-            </p>
-            <div class="row">
-              <div class="col-lg-6">
-                <ul>
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Pseudo:</strong> <span>Hafiz M.</span>
-                  </li> -->
-                  <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+229 0161648007</span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Ville:</strong> <span>Cotonou, Bénin</span></li>
-                </ul>
-              </div>
-              <div class="col-lg-6">
-                <ul>
-                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Niveau:</strong> <span>Licence Professionnelle</span>
-                  </li> -->
-                  <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span><a
-                        href="mailto:abdulmoustapha64@gmail.com">abdulmoustapha64@gmail.com</a></span></li>
-                  <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Disponible</span></li>
-                </ul>
-              </div>
-            </div>
-            <p>
-              Je suis avant tout un jeune passionné du numérique qui a, durant toute sa carrière, œuvré à atteindre des
-              objectifs bien définis. J’ai donc suivi un parcours strict et conséquent durant lequel j’ai surtout acquis
-              beaucoup de valeurs.
-              Vif et dynamique de nature, je possède au-delà de ces atouts, un très bon sens commercial et d'excellentes
-              qualités humaines.
-            </p>
-          </div>
-        </div>
-
+      <div class="hero-actions reveal is-in reveal-d3">
+        <a href="#projets" class="btn btn-primary">Voir mes projets</a>
+        <a href="#contact" class="btn btn-ghost">Discutons de votre projet</a>
       </div>
-    </section><!-- End About Section -->
+      <div class="hero-socials reveal is-in reveal-d4" id="socialRow"></div>
 
-    <!-- ======= Skills Section ======= -->
-    <section id="competences" class="skills section-bg">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Compétences</h2>
-          <p>Durant mon parcours académique, appuyé de mes travaux propres, j'ai construit mes compétences autours de
-            nombreux domaines notamment le
-            développement web - mobile - desktop, la data science et le design.
-          </p>
-        </div>
-
-        <div class="row skills-content">
-
-          <div class="col-lg-6" data-aos="fade-up">
-
-            <div class="progress">
-              <span class="skill">JS-Tech Web Dev (Vue - React)<i class="val">98%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="98" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Data Science - Automation (Py-Oriented TechStack)<i class="val">90%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Server Side Techs (Symfony/Laravel) - RestFull APIs<i class="val">95%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="95" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-
-            <div class="progress">
-              <span class="skill">Flutter - Dart <i class="val">92%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-
-            <div class="progress">
-              <span class="skill">AI - Automation Systems<i class="val">65%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-            <div class="progress">
-              <span class="skill">Maintenance - Networking<i class="val">70%</i></span>
-              <div class="progress-bar-wrap">
-                <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100">
-                </div>
-              </div>
-            </div>
-
-
-          </div>
-
-        </div>
-
-      </div>
-    </section><!-- End Skills Section -->
-
-    <!-- ======= Resume Section ======= -->
-    <section id="cv" class="resume">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Curriculum Vitae</h2>
-          <p></p>
-        </div>
-
-        <div class="row">
-          <div class="col-lg-6" data-aos="fade-up">
-            <h3 class="resume-title">Etat civil</h3>
-            <div class="resume-item pb-0">
-              <h4>A. Hafiz A. E. MOUSTAPHA</h4>
-              <p><em>Célibataire de nationalité béninoise né le 24 Juin 2005 à Cotonou </em></p>
-              <ul>
-                <i class="bi bi-geo-alt">&nbsp;&nbsp;&nbsp;</i>Cotonou , Bénin <br>
-                <i class="bi bi-phone">&nbsp;&nbsp;&nbsp;</i>+229 0161648007 <br>
-                <i class="bi bi-envelope">&nbsp;&nbsp;&nbsp;</i>abdulmoustapha64@gmail.com <br>
-              </ul>
-            </div>
-
-            <h3 class="resume-title">Education</h3>
-            <div class="resume-item">
-              <h4>Licence Professionnelle </h4>
-              <h5>2024 - 2025</h5>
-              <p><em>En Analyse et Programmation Informatique, obtenue à l'Ecole Nationale d'Economie Appliquée et de
-                  Management (ENEAM) - Cotonou</em></p>
-              <p>Mention T. Bien</p>
-            </div>
-            <div class="resume-item">
-              <h4>Baccalauréat série D </h4>
-              <h5>2021 - 2022</h5>
-              <!-- <p><em>Collège Sainte Esther d'Avotrou</em></p> -->
-              <p>Mention T. Bien</p>
-            </div>
-            <div class="resume-item">
-              <h4>BEPC Moderne Court </h4>
-              <h5>2018 - 2019</h5>
-              <!-- <p><em>Collège Excellence Divine de Tohouè</em></p> -->
-               <p>Mention T. Bien</p>
-            </div>
-          </div>
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div>
-              <h3 class="resume-title">Experiences Professionnelles</h3>
-              <div class="resume-item">
-                <h4>Enseignement</h4>
-                <h5>Depuis 2019</h5>
-                <ul>
-                  J'encadre des apprenants du Primaire et du Collège par dispense de cours d’informatique allant des
-                  notions de base jusqu’à
-                  celles avancées selon le niveau. Sans compter les travaux et séances que je conduis en lien aux Maths, à l'Anglais et autres
-                </ul>
-              </div>
-              <div class="resume-item">
-                <h4>Programmation Réseautage </h4>
-                <h5>Depuis 2023</h5>
-                <ul>
-                  Outre la réalisation de nombreux projets informatiques,
-                  je suis Administrateur et Animateur d’une chaîne YouTube
-                  où je partage des informations utiles concernant l’informatique, la
-                  programmation … dans le but d’aider la communauté à mieux se
-                  former et s’informer.
-                  Promoteur du club de programmation SMOOD ( <a href="https://smood.onrender.com" target="_blank">Senior
-                    Mood _Dev</a> )
-                </ul>
-              </div>
-            </div>
-            <div>
-              <div class="resume-item">
-                <h4>Langues parlées</h4>
-                <ul>
-                  <li>Français</li>
-                  <li>Anglais (Conversationnel)</li>
-                  <li>Goun</li>
-                </ul>
-              </div>
-              <div class="resume-item">
-                <h4>Passe-temps </h4>
-                <ul>
-                  <li>Lecture / Art</li>
-                  <li>Jeux vidéos</li>
-                  <li>Sport</li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-          <!-- 
-
-           -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div>
-              <h3 class="resume-title">Compétences Pratiques</h3>
-              <div class="resume-item pb-0">
-                <h4>Divers</h4>
-                <p> </p>
-                <ul>
-                  <li>Maîtrise approfondie des logiciels de la suite MS Office (Word, Excel, PowerPoint, Visio …)</li>
-                  <li>Designs UI-UX et Maquettage Figma ; Présentations animées et attractives PowerPoint</li>
-                  <li>Maîtrise des outils et syst_mes d'automatisation d’IA</li>
-                  <li>Maintenance Logicielle et Matérielle d’Ordinateurs</li>
-
-                </ul>
-              </div>
-
-
-              <h3 class="resume-title">Médias Sociaux</h3>
-
-              <div class="resume-item">
-                <h4>Liens Utiles : </h4>
-                <h5><a target="_blank" href="https://wa.me/61648007" class=""><i class="bx bxl-whatsapp"></i>
-                    WhatsApp</a> </h5>
-                <h5><a target="_blank" href="https://www.facebook.com/Abdulo64" class="facebook"><i
-                      class="bx bxl-facebook"></i> Facebook</a></h5>
-                <h5><a target="_blank" href="https://www.instagram.com/abdulmoustapha64?igsh=YzljYTk1ODg3Zg=="
-                    class="instagram"><i class="bx bxl-instagram"></i> Instagram</a></h5>
-                <h5><a target="_blank" href="https://github.com/AbdulHafizMous" class="google-plus"><i
-                      class="bx bxl-github"></i>GitHub</a> </h5>
-                <h5><a target="_blank" href="https://www.linkedin.com/in/abdul-moustapha-04b92b24b?" class="linkedin"><i
-                      class="bx bxl-linkedin"></i> LinkedIn</a></h5>
-                <h5><a target="_blank" href="https://www.youtube.com/@seniormood_dev" class="youtube"><i
-                      class="bx bxl-youtube"></i> Youtube</a></h5>
-
-
-              </div>
-
-            </div>
-
-          </div>
-          <!--  -->
-          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-            <div>
-              <h3 class="resume-title">Experiences Para - Professionnelles</h3>
-              <div class="resume-item">
-                <h4>Activisme - Militantisme</h4>
-                <h5>Depuis 2019</h5>
-                <ul>
-                  Membre Actif et point focal Inclusion à l’Association Nationale des
-                  Conseil d’Enfants de Bénin (ANACEB), de U-Report sous l’égide de
-                  l’UNICEF et depuis 2022 SG Adjoint au Conseil consultatif Communal
-                  des Enfants (CCCE) de Sème-Podji.
-                  J’ai en effet beaucoup appris par mon expérience continue en tant
-                  que militant - activiste – défenseur des droits des enfants et de la
-                  femme ; en ces qualités, j’ai pris part à de nombreux forums, ateliers
-                  de formations, émissions radio … pour intervenir sur des sujets variés
-                  en la matière
-                </ul>
-              </div>
-              <div class="resume-item">
-                <h4>Téléchargement </h4>
-                <div class="text-center">
-                  <h5 class="text-center">Fichier CV</h5>
-                </div>
-
-                <ul>
-                  <div class="row text-center ">
-                    <div class="col"><a class="text-center btn btn-success fw-bold" data-aos="fade-up"
-                        data-aos-delay="100" href="assets/cv_2p_fr.pdf" download target="_blank"><i
-                          class="bx bx-download me-2"></i> CV FR</a></div>
-                    <!-- <div class="col"><a class="text-center btn btn-success fw-bold" data-aos="fade-up"
-                        data-aos-delay="100" href="assets/cv_full_eng.pdf" download target="_blank"><i
-                          class="bx bx-download me-2"></i> CV EN</a></div> -->
-
-                  </div>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-
-
-
-
-        </div>
-
-      </div>
-    </section><!-- End Resume Section -->
-
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Services</h2>
-          <p>Quelques domaines de prédilection : </p>
-        </div>
-
-        <div class="row">
-          <div class="col-12 icon-box" data-aos="fade-up">
-            <div class="icon"><i class="bi bi-briefcase"></i></div>
-            <h4 class="title">Developpement Informatique</h4>
-            <p class="description text-center">
-              De nombreux projets informatiques viennent arborer ma carrière d'Analyste programmeur, il faut citer
-              principalement : une plateforme de gestions scolaire jusqu’à
-              impression de bulletins de notes ; application mobile de
-              discussion instantanée ; plateforme de gestion des nouveaux
-              marchés publics du Bénin ; plateforme de mise en contact entre
-              travailleurs et employeurs …
-            </p>
-          </div>
-          <div class=" col-md-6 icon-box" data-aos="fade-up" data-aos-delay="100">
-            <div class="icon"><i class="bi bi-card-checklist"></i></div>
-            <h4 class="title">Maintenance informatique et Réseau</h4>
-            <p class="description">Mes conaissances de base en la matière me permettent de me frotter aux installations
-              réseau, de détecter et de corriger les pannes élémentaires et moyennes des machines électroniques en
-              général.</p>
-          </div>
-          <div class=" col-md-6 icon-box" data-aos="fade-up" data-aos-delay="200">
-            <div class="icon"><i class="bi bi-pie-chart"></i></div>
-            <h4 class="title">Design et Conceptions Graphiques</h4>
-            <p class="description">Par l'usage de l'outil collaboratif Figma et de MSO PowerPoint, je met sur pieds des
-              maquettes adaptées, des infographies attrayantes aux animations dynamiques, sans compter la création de
-              présentations personnalisées qui reflètent un style et une image de marques uniques</p>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Services Section -->
-
-    <!-- ======= Projects Section (premium reorderable gallery) ======= -->
-    <section id="projects" class="projects section light-background">
-      <!-- Titre de section -->
-      <div class="container section-title" data-aos="fade-up">
-        <h2>Projets</h2>
-        <div><span>Découvrez</span> <span class="description-title">Tous mes Projets</span></div>
-        <p>Une sélection complète de mes réalisations : applications web et mobiles, APIs, outils open source et
-          plateformes déployées. Réorganisez, personnalisez les vignettes, et naviguez à votre rythme.</p>
-      </div><!-- Fin titre -->
-
-      <div class="container">
-
-        <!-- Toolbar: view toggle + edit mode + reset -->
-        <div class="pg-toolbar">
-          <button type="button" class="pg-btn" id="pgViewToggle" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"></rect><rect x="14" y="3" width="7" height="7" rx="1"></rect><rect x="3" y="14" width="7" height="7" rx="1"></rect><rect x="14" y="14" width="7" height="7" rx="1"></rect></svg>
-            <span id="pgViewToggleLabel">Voir en défilement</span>
-          </button>
-          <button type="button" class="pg-btn" id="pgEditToggle" aria-pressed="false">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-            <span id="pgEditToggleLabel">Réorganiser</span>
-          </button>
-          <button type="button" class="pg-btn" id="pgResetBtn" title="Réinitialiser l'ordre et les images">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-            Réinitialiser
-          </button>
-        </div>
-
-        <div class="pg-viewport">
-          <div class="pg-track" id="pgTrack"><!-- cards injected by JS --></div>
-        </div>
-
-        <div class="pg-nav" id="pgNav">
-          <button type="button" id="pgPrev" aria-label="Précédent">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
-          </button>
-          <div class="pg-dots" id="pgDots"></div>
-          <button type="button" id="pgNext" aria-label="Suivant">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
-        </div>
-
-      </div>
-
-      <div class="pg-toast" id="pgToast"></div>
-    </section><!-- End Projects Section -->
-
-    <!-- ======= Contact Section ======= -->
-    <section id="contact" class="contact">
-      <div class="container">
-
-        <div class="section-title">
-          <h2>Contact</h2>
-          <p>Pour plus d'informations veuillez me contacter.</p>
-        </div>
-        <div class="row" data-aos="fade-in">
-          <!-- ======= Location Card ======= -->
-          <div class="col-lg-7 d-flex align-items-stretch" data-aos="fade-up">
-            <div class="card shadow-lg border-0 rounded-3 w-100">
-              <div class="card-header bg-primary text-white text-center fw-bold">
-                <i class="bi bi-geo-alt-fill"></i> My Location
-              </div>
-              <div class="card-body p-0">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3978.555403779946!2d2.427589!3d6.370292!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1023575e1c39a0a5%3A0x2a6b5b3a8f8c6d8!2sCotonou%2C%20B%C3%A9nin!5e0!3m2!1sen!2sbj!4v1695398900000!5m2!1sen!2sbj"
-                  width="100%" height="350" style="border:0; border-radius: 0 0 12px 12px;" allowfullscreen=""
-                  loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                </iframe>
-              </div>
-            </div>
-          </div>
-          <!-- ======= End Location Card ======= -->
-
-          <!-- Contact Card -->
-          <div class="col-lg-5 d-flex align-items-stretch">
-            <div class="info shadow rounded-4 p-4 bg-light">
-              <div class="address mb-3">
-                <i class="bi bi-geo-alt fs-4 text-primary"></i>
-                <h4>Location:</h4>
-                <p>Cotonou, Bénin</p>
-              </div>
-
-              <div class="email mb-3">
-                <i class="bi bi-envelope fs-4 text-danger"></i>
-                <h4>Email:</h4>
-                <p><a href="mailto:abdulmoustapha64@gmail.com">abdulmoustapha64@gmail.com</a></p>
-              </div>
-
-              <div class="phone mb-3">
-                <i class="bi bi-phone fs-4 text-success"></i>
-                <h4>Call:</h4>
-                <p><a href="tel:+22961648007">+229 61 64 80 07</a></p>
-              </div>
-
-              <!-- Social Links -->
-              <div class="social-links d-flex justify-content-start gap-3 mt-4">
-                <a href="https://wa.me/61648007" target="_blank" class="whatsapp fs-4 text-success"><i
-                    class="bx bxl-whatsapp"></i></a>
-                <a href="https://www.facebook.com/Abdulo64" target="_blank" class="facebook fs-4 text-primary"><i
-                    class="bx bxl-facebook"></i></a>
-                <a href="https://www.youtube.com/@seniormood_dev" target="_blank" class="youtube fs-4 text-danger"><i
-                    class="bx bxl-youtube"></i></a>
-                <a href="https://github.com/AbdulHafizMous" target="_blank" class="github fs-4 text-dark"><i
-                    class="bx bxl-github"></i></a>
-                <a href="https://www.linkedin.com/in/abdul-moustapha-04b92b24b?" target="_blank"
-                  class="linkedin fs-4 text-info"><i class="bx bxl-linkedin"></i></a>
-              </div>
-            </div>
-          </div>
-
-          <!-- <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
-            <form action="#" role="form" class="php-email-form">
-              <div class="row">
-                <div class="form-group col-md-6">
-                  <label for="name">Your Name</label>
-                  <input type="text" name="name" class="form-control" id="name" required>
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="name">Your Email</label>
-                  <input type="email" class="form-control" name="email" id="email" required>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="name">Subject</label>
-                <input type="text" class="form-control" name="subject" id="subject" required>
-              </div>
-              <div class="form-group">
-                <label for="name">Message</label>
-                <textarea class="form-control" name="message" rows="10" required></textarea>
-              </div>
-              <div class="my-3">
-                <div class="loading">Loading</div>
-                <div class="error-message"></div>
-                <div class="sent-message">Your message has been sent. Thank you!</div>
-              </div>
-              <div class="text-center"><button type="submit">Send Message</button></div>
-            </form>
-          </div> -->
-        </div>
-
-      </div>
-    </section><!-- End Contact Section -->
-
-  </main><!-- End #main -->
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong><span>- All Rights Reserved</span></strong>
-      </div>
-      <div class="credits">
-        Designed by Hafiz M.
+      <div class="hero-stats reveal is-in reveal-d4">
+        <div class="stat"><b>50+</b><span>Projets &amp; outils livrés</span></div>
+        <div class="stat"><b>15+</b><span>Structures accompagnées</span></div>
+        <div class="stat"><b>4</b><span>Langues parlées</span></div>
+        <div class="stat"><b>2025</b><span>Licence Pro — Mention T. Bien</span></div>
       </div>
     </div>
-  </footer><!-- End  Footer -->
+  </section>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-      class="bi bi-arrow-up-short"></i></a>
+  <!-- ===================== BANNER (marquee tagline) ===================== -->
+  <div class="marquee-banner" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+    </div>
+  </div>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="assets/vendor/aos/aos.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <!-- ===================== HIGHLIGHT — Senior Mood ===================== -->
+  <section id="highlight" class="highlight-band">
+    <div class="wrap">
+      <div class="highlight-card reveal">
+        <div class="hl-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 6.6L21 11l-6.6 2.4L12 20l-2.4-6.6L3 11l6.6-2.4z"></path></svg>
+        </div>
+        <div class="hl-copy">
+          <span class="hl-eyebrow">En highlight</span>
+          <h3>Acteur principal chez <span>Senior Mood</span></h3>
+          <p>Au-delà de mes missions freelance, je suis un acteur principal de <strong>Senior Mood</strong>, une agence digitale spécialisée dans la tech, l'IA et l'innovation.</p>
+        </div>
+        <a href="https://smood.onrender.com" target="_blank" rel="noopener" class="btn btn-primary hl-cta">
+          Découvrir Senior Mood
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
-  <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <!-- ===================== ABOUT ===================== -->
+  <section id="about">
+    <div class="wrap">
+      <div class="about-grid">
+        <div class="reveal">
+          <div class="avatar-card">
+            <div class="weave-bg"></div>
+            <img src="assets/img/profile_fb.jpg" alt="Portrait d'Hafiz MOUSTAPHA" onerror="this.style.display='none'">
+            <span class="avatar-fallback" id="avatarFallback">AH</span>
+            <div class="avatar-tag"><span class="pulse"></span> Disponible pour missions</div>
+          </div>
+           
 
-  <!-- ======= Projects Gallery Engine ======= -->
-  <script>
-  (function () {
-    "use strict";
+          <div class="lang-row">
+            <div class="lang-item"><span class="lname">Goun / Fon</span><div class="lang-dots"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+            <div class="lang-item"><span class="lname">Français</span><div class="lang-dots"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+            <div class="lang-item"><span class="lname">Anglais</span><div class="lang-dots"><i class="on"></i><i class="on"></i><i></i></div></div>
+          </div>
+        </div>
+        <div class="reveal reveal-d1">
+          <div class="eyebrow">À propos</div>
+          <h3>Un profil qui code, qui construit et qui s'engage.</h3>
+          <div class="about-copy">
+            <p>Je suis un <strong>Analyste Programmeur</strong> passionné par le numérique, formé à l'ENEAM (Cotonou) et boursier d'excellence du Gouvernement pour l'ensemble de mon cursus. Mon parcours combine développement logiciel, entrepreneuriat et activisme social — trois terrains sur lesquels j'ai appris à livrer avec exigence et à assumer des responsabilités.</p>
+            <p>Aujourd'hui, j'interviens en tant que <strong>freelance et prestataire</strong> auprès d'agences et d'institutions (MAXAFRICA, SCARSOFT, Tech2Work Agency / ALNYF Bénin, Ministère de l'Économie et des Finances) sur des applications web, mobiles et des systèmes de data &amp; automatisation. En parallèle, je suis acteur principal de <strong>Senior Mood</strong>, agence digitale spécialisée dans la tech, l'IA et l'innovation, et je forme la relève à travers des cours et des masterclass.</p>
+            <p>Vif, rigoureux et animé par un fort sens des responsabilités, je combine une culture technique solide à un vrai sens commercial et humain — hérité de mon engagement de longue date pour les droits des enfants et des femmes au Bénin.</p>
+          </div>
 
-    /* ---------------------------------------------------------------
-     * 1) DATA — the full project list.
-     *    - liveUrl: deployed site -> rendered as a live mini-preview
-     *    - repoUrl: GitHub link -> always the primary CTA
-     *    - lang/langColor: GitHub-style language dot
-     *    - visibility: "public" | "private"
-     * ------------------------------------------------------------- */
-    var PROJECTS = [
-      {
-        id: "smood",
-        name: "Senior Mood _Dev",
-        desc: "Site officiel du club de programmation SMOOD : actualités, ressources et communauté de devs.",
-        repoUrl: "https://github.com/AbdulHafizMous/smood",
-        liveUrl: "https://smood.onrender.com/",
-        lang: "HTML", langColor: "#e34c26",
-        visibility: "private"
-      },
-      {
-        id: "heventz",
-        name: "HeventZ",
-        desc: "Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.",
-        repoUrl: "https://github.com/AbdulHafizMous/HeventZ",
-        liveUrl: "https://hevent-z.vercel.app/", // "https://heventz.onrender.com/",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "private"
-      },
-      {
-        id: "vizlyco",
-        name: "Vizly.co",
-        desc: "Application web orientée data & visualisation, conçue pour explorer l'information avec clarté.",
-        repoUrl: "https://github.com/AbdulHafizMous/vizly.co",
-        liveUrl: "https://vizly-co-beta.vercel.app/", // "https://vizly-co.onrender.com/",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "private"
-      },
-      {
-        id: "koro",
-        name: "Koro",
-        desc: "Projet web HTML déployé, exploratoire et orienté interface utilisateur soignée.",
-        repoUrl: "https://github.com/AbdulHafizMous/koro",
-        liveUrl: "https://koro-h7cs.onrender.com/",
-        lang: "HTML", langColor: "#e34c26",
-        visibility: "public"
-      },
-      {
-        id: "outilsco",
-        name: "OutilSco",
-        desc: "Plateforme complète de gestion scolaire sous l'égide du cabinet FORD HIGH TECH : élèves, notes, bulletins.",
-        repoUrl: "https://github.com/AbdulHafizMous/gp-backend",
-        liveUrl: "https://outilsco.com/",
-        lang: "PHP", langColor: "#4f5d95",
-        visibility: "private"
-      },
-      {
-        id: "sweetchat",
-        name: "SweetChat",
-        desc: "Application de chat instantané moderne et rapide, développée avec une interface responsive.",
-        repoUrl: "https://github.com/AbdulHafizMous/alnyf4tech",
-        liveUrl: "https://sweet-chat-doc.vercel.app",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "private"
-      },
-      {
-        id: "gp-mobile",
-        name: "Grand Public",
-        desc: "Application mobile Flutter liée à la plateforme Grand Public du Bénin.",
-        repoUrl: "https://github.com/AbdulHafizMous/gp-mobile",
-        liveUrl: "https://grandpublic.bj",
-        lang: "Dart", langColor: "#00b4ab",
-        visibility: "public"
-      },
-      {
-        id: "skipper",
-        name: "Skipper",
-        desc: "Géolocalisation et info-trafic pour le Bénin : itinéraires personnalisés, langues locales, marqueurs communautaires.",
-        repoUrl: "https://github.com/AbdulHafizMous/task-manager-wt",
-        liveUrl: "https://skipper-vf.onrender.com/docs",
-        lang: "Dart", langColor: "#00b4ab",
-        visibility: "public"
-      },
-      {
-        id: "csv-editor",
-        name: "CSV Editor",
-        desc: "Système simplifié de gestion de fichiers CSV, open source et modulable.",
-        repoUrl: "https://github.com/AbdulHafizMous/webschool",
-        img: "./assets/img/portfolio/csv.jpg",
-        lang: "HTML", langColor: "#e34c26",
-        visibility: "public"
-      },
-      // {
-      //   id: "lim",
-      //   name: "Ladies In Marketing",
-      //   desc: "Hub officiel \"Ladies In Marketing\" : ressources, événements et mise en réseau pour la communauté.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/lim",
-      //   lang: "TypeScript", langColor: "#3178c6",
-      //   visibility: "private"
-      // },
-      {
-        id: "haftuber",
-        name: "Haftuber",
-        desc: "Outil Python autour de l'automatisation et de la manipulation de contenus.",
-        repoUrl: "https://github.com/AbdulHafizMous/haftuber",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "private"
-      },
-      {
-        id: "shortmaster",
-        name: "ShortMaster",
-        desc: "Outil web pour la gestion et le raccourcissement de liens, interface HTML légère.",
-        repoUrl: "https://github.com/AbdulHafizMous/shortmaster",
-        lang: "HTML", langColor: "#e34c26",
-        visibility: "private"
-      },
-      {
-        id: "leadflow",
-        name: "LeadFlow",
-        desc: "Système Python de gestion et de suivi de prospects (leads) pour automatiser le pipeline commercial.",
-        repoUrl: "https://github.com/AbdulHafizMous/leadflow",
-        img: "./assets/img/portfolio/leadflow.jpeg",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "private"
-      },
-      {
-        id: "profile",
-        name: "Profile — Portfolio mono-page",
-        desc: "Portfolio descriptif minimaliste, conçu pour présenter un profil en une seule page.",
-        repoUrl: "https://github.com/AbdulHafizMous/profile",
-        lang: "HTML", langColor: "#e34c26",
-        visibility: "public"
-      },
-      // {
-      //   id: "hohaya-backend",
-      //   name: "Hohaya — Backend",
-      //   desc: "API et logique serveur Laravel/Blade pour la plateforme Hohaya.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/hohaya-backend",
-      //   lang: "Blade", langColor: "#f7523f",
-      //   visibility: "private"
-      // },
-      {
-        id: "utils",
-        name: "Utils",
-        desc: "Collection de scripts et utilitaires Python partagés avec la communauté.",
-        repoUrl: "https://github.com/AbdulHafizMous/utils",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "public"
-      },
-      {
-        id: "hafiz-pro-d-line",
-        name: "Hafiz Pro D-Line",
-        desc: "Projet Python d'automatisation et de traitement de données personnalisé.",
-        repoUrl: "https://github.com/AbdulHafizMous/hafiz-pro-d-line",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "private"
-      },
-      {
-        id: "hafditor",
-        name: "Hafditor",
-        desc: "Éditeur / outil Python pensé pour accélérer un flux de travail spécifique au quotidien.",
-        repoUrl: "https://github.com/AbdulHafizMous/hafditor",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "private"
-      },
-      {
-        id: "loghafo",
-        name: "LogHafo",
-        desc: "Outil Python de journalisation (logging) et de suivi d'activité applicative.",
-        repoUrl: "https://github.com/AbdulHafizMous/loghafo",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "private"
-      },
-      {
-        id: "shared",
-        name: "Shared",
-        desc: "Librairie de composants et utilitaires TypeScript partagés entre plusieurs projets.",
-        repoUrl: "https://github.com/AbdulHafizMous/shared",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "public"
-      },
-      // {
-      //   id: "grand-public-connect",
-      //   name: "Grand Public Connect",
-      //   desc: "Plateforme de mise en contact entre travailleurs et employeurs, pour le grand public.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/grand-public-connect",
-      //   lang: "TypeScript", langColor: "#3178c6",
-      //   visibility: "private"
-      // },
-      {
-        id: "benin-child-voice",
-        name: "Benin Child Voice",
-        desc: "Plateforme dédiée à la voix et aux droits des enfants au Bénin — activisme & sensibilisation.",
-        repoUrl: "https://github.com/AbdulHafizMous/benin-child-voice",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "private"
-      },
-      {
-        id: "public-apis",
-        name: "Public APIs",
-        desc: "Liste collaborative et organisée d'APIs publiques gratuites, en contribution open source.",
-        repoUrl: "https://github.com/AbdulHafizMous/public-apis",
-        lang: "Python", langColor: "#3572a5",
-        visibility: "public"
-      },
-      // {
-      //   id: "resto-api",
-      //   name: "Resto API",
-      //   desc: "Une API REST simple pour un système de gestion de restaurant, construite avec Symfony.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/resto-api",
-      //   lang: "PHP", langColor: "#4f5d95",
-      //   visibility: "public"
-      // },
-      // {
-      //   id: "ford-fuel-flow",
-      //   name: "Ford Fuel Flow",
-      //   desc: "Application mobile Flutter de suivi et de gestion de consommation de carburant.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/Ford-Fuel-Flow",
-      //   lang: "Dart", langColor: "#00b4ab",
-      //   visibility: "private"
-      // },
-      {
-        id: "taskm-wt",
-        name: "TaskM — WT",
-        desc: "Application mobile Flutter de gestion de tâches, variante \"WT\".",
-        repoUrl: "https://github.com/AbdulHafizMous/taskm-wt",
-        lang: "Dart", langColor: "#00b4ab",
-        visibility: "public"
-      },
-      {
-        id: "taskm-web",
-        name: "TaskM — Web",
-        desc: "Version web TypeScript de l'application de gestion de tâches TaskM.",
-        repoUrl: "https://github.com/AbdulHafizMous/taskm-web",
-        lang: "TypeScript", langColor: "#3178c6",
-        visibility: "public"
-      },
-      {
-        id: "kkiapay-api",
-        name: "Kkiapay API",
-        desc: "Intégration backend Blade autour de l'API de paiement Kkiapay.",
-        repoUrl: "https://github.com/AbdulHafizMous/kkiapay-api",
-        lang: "Blade", langColor: "#f7523f",
-        visibility: "public"
-      },
-      // {
-      //   id: "airtable-content-stylist",
-      //   name: "Airtable Content Stylist",
-      //   desc: "Outil TypeScript d'automatisation pour styliser et organiser du contenu directement depuis Airtable.",
-      //   repoUrl: "https://github.com/AbdulHafizMous/airtable-content-stylist",
-      //   lang: "TypeScript", langColor: "#3178c6",
-      //   visibility: "private"
-      // },
-      {
-        id: "comeup",
-        name: "Senior Mood — Agence ComeUp",
-        desc: "Agence digitale sur ComeUp : sites web, automatisations, bots, design et services numériques sur mesure.",
-        repoUrl: "https://comeup.com/fr/@seniormood",
-        lang: "Service", langColor: "#999999",
-        visibility: "public"
-      },
-      {
-        id: "upwork",
-        name: "Profil Upwork",
-        desc: "Freelancer international : développement web & mobile, intégration d'API, automatisations, solutions SaaS.",
-        repoUrl: "https://www.upwork.com/freelancers/~01d0e76ce5eefeb2f2",
-        lang: "Service", langColor: "#999999",
-        visibility: "public"
-      }
-    ];
+         <dl class="about-facts">
+            <div><dt>Localisation</dt><dd>Cotonou, Bénin</dd></div>
+            <div><dt>Disponibilité</dt><dd>Freelance — missions courtes &amp; longues</dd></div>
+            <div><dt>Email</dt><dd><a href="mailto:abdulmoustapha64@gmail.com">abdulmoustapha64@gmail.com</a></dd></div>
+            <div><dt>Téléphone</dt><dd><a href="tel:+22961648007">+229 01 61 64 80 07</a></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    var DEFAULT_ORDER = PROJECTS.map(function (p) { return p.id; });
-    var BY_ID = {};
-    PROJECTS.forEach(function (p) { BY_ID[p.id] = p; });
+  <!-- ===================== PARCOURS ===================== -->
+  <section id="parcours" class="section-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Parcours</div>
+        <h2>Expériences professionnelles</h2>
+        <p class="lede">Un enchaînement continu de missions, stages et projets menés en parallèle — de la salle de classe à la production.</p>
+      </div>
 
-    var LS_ORDER = "pg_project_order_v1";
-    var LS_IMAGES = "pg_project_images_v1";
-    var LS_VIEW = "pg_view_mode_v1";
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Mars 2025 → aujourd'hui</span>
+          <h4>Développeur Full-Stack orienté Mobile</h4>
+          <span class="tl-org">MAXAFRICA — Prestation</span>
+          <p>Conception de solutions numériques d'envergure au service de causes durables et innovantes.</p>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Avril 2025 → aujourd'hui</span>
+          <h4>Développeur Full-Stack</h4>
+          <span class="tl-org">Tech2Work Agency / ALNYF Bénin — Prestation</span>
+          <p>Développement de WebApps avec Vue.js / Nuxt.js, data analysis &amp; scraping avec Python, Playwright et FastAPI.</p>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Novembre 2025 → Février 2026</span>
+          <h4>Développeur Full-Stack</h4>
+          <span class="tl-org">SCARSOFT — Prestation</span>
+          <p>Contribution au projet <strong>GivEats-TakEats</strong>, solution intégrale de restauration principalement destinée au marché français.</p>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Avril 2025 → Juin 2025</span>
+          <h4>Stage académique de programmation</h4>
+          <span class="tl-org">Ministère de l'Économie et des Finances du Bénin</span>
+          <p>Conception et développement de <strong>Skipper</strong>, une plateforme de géolocalisation et d'info-trafic en temps réel (projet de soutenance), avec Flutter, Firebase et APIs tierces.</p>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Janvier 2024 → aujourd'hui</span>
+          <h4>Freelancer, CEO &amp; Fondateur</h4>
+          <span class="tl-org">Senior Mood — Agence digitale (Tech, IA &amp; Innovation)</span>
+          <p>Acteur principal de <strong>Senior Mood</strong>, agence digitale spécialisée dans la tech, l'IA et l'innovation, pour une clientèle internationale via des plateformes de freelancing. Administrateur d'une chaîne YouTube et créateur de contenu tech.</p>
+        </div>
+        <div class="tl-item reveal">
+          <span class="tl-dot"></span>
+          <span class="tl-date">Mai - Août 2024 &amp; Juin - Sept. 2023</span>
+          <h4>Stages académiques de programmation</h4>
+          <span class="tl-org">Ford High Tech</span>
+          <p>Contribution à plusieurs projets en production, notamment <strong>OutilSco</strong>, plateforme intégrale de gestion scolaire intelligente développée avec Flutter et Laravel APIs.</p>
+        </div>
+      </div>
 
-    var GRID_PAGE_SIZE = 9; // "9 at a time" in grid mode
+      <div class="edu-cards">
+        <div class="edu-card reveal">
+          <span class="tl-date">2022 - 2025</span>
+          <h4>Licence Professionnelle — Analyse et Programmation Informatique</h4>
+          <p>École Nationale d'Économie Appliquée et de Management (ENEAM), Cotonou — Boursier d'excellence</p>
+          <span class="mention">Mention Très Bien</span>
+        </div>
+        <div class="edu-card reveal reveal-d1">
+          <span class="tl-date">2021 - 2022</span>
+          <h4>Baccalauréat Scientifique, série D</h4>
+          <p>Complexe Scolaire Privé Sainte Esther, Cotonou — Major</p>
+          <span class="mention">Mention Bien</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    /* ---------------------------------------------------------------
-     * 2) STATE
-     * ------------------------------------------------------------- */
-    var state = {
-      order: loadOrder(),
-      images: loadImages(),
-      viewMode: localStorage.getItem(LS_VIEW) || "grid", // "grid" | "scroll"
-      editMode: false,
-      gridPage: 0
-    };
+  <!-- ===================== COMPETENCES ===================== -->
+  <section id="competences">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Compétences</div>
+        <h2>Un stack large, pensé pour livrer.</h2>
+        <p class="lede">Du frontend au backend, de la donnée à l'automatisation — de quoi couvrir un produit de bout en bout.</p>
+      </div>
 
-    function loadOrder() {
-      try {
-        var raw = JSON.parse(localStorage.getItem(LS_ORDER) || "null");
-        if (Array.isArray(raw) && raw.length) {
-          // merge in any new ids not present in saved order, drop stale ones
-          var known = raw.filter(function (id) { return BY_ID[id]; });
-          DEFAULT_ORDER.forEach(function (id) {
-            if (known.indexOf(id) === -1) known.push(id);
-          });
-          return known;
-        }
-      } catch (e) {}
-      return DEFAULT_ORDER.slice();
-    }
+      <div class="skill-groups">
+        <div class="skill-group reveal">
+          <div class="sg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg></div>
+          <h3>Développement &amp; Frameworks</h3>
+          <p class="sg-sub">Web, mobile &amp; serveur</p>
+          <div class="chip-row">
+            <span class="chip">JavaScript / TypeScript</span><span class="chip">Python</span><span class="chip">PHP</span>
+            <span class="chip">Dart / Flutter</span><span class="chip">React / Next.js</span><span class="chip">Vue / Nuxt</span>
+            <span class="chip">Laravel / Symfony</span><span class="chip">FastAPI</span><span class="chip">...</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-d1">
+          <div class="sg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg></div>
+          <h3>Data, Cloud &amp; Automatisation</h3>
+          <p class="sg-sub">Bases de données, BaaS &amp; workflows</p>
+          <div class="chip-row">
+            <span class="chip">AWS / EC2 / S3</span><span class="chip">SQL / NoSQL</span><span class="chip">Firebase</span><span class="chip">Supabase</span><span class="chip">Redis</span>
+            <span class="chip">n8n</span><span class="chip">Make</span><span class="chip">LateNode</span><span class="chip">Playwright / Scraping</span><span class="chip">...</span>
+          </div>
+        </div>
+        <div class="skill-group reveal reveal-d2">
+          <div class="sg-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"></circle><path d="M17 3l-1 1.5"></path><path d="M2 22l7-7"></path><path d="M12 12l4-4 5 5-4 4c-1.5 1.5-3.5.5-5-1s-2.5-3.5-1-5z"></path></svg></div>
+          <h3>Design &amp; Conception</h3>
+          <p class="sg-sub">Interfaces &amp; supports visuels</p>
+          <div class="chip-row">
+            <span class="chip">UI / UX</span><span class="chip">Figma</span><span class="chip">Prototypage</span><span class="chip">PowerPoint avancé</span><span class="chip">Identité visuelle</span>
+            <span class="chip">...</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    function loadImages() {
-      try {
-        return JSON.parse(localStorage.getItem(LS_IMAGES) || "{}") || {};
-      } catch (e) { return {}; }
-    }
+  <!-- ===================== DISTINCTIONS ===================== -->
+  <section id="distinctions" class="section-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Distinctions</div>
+        <h2>Reconnaissances &amp; sélections.</h2>
+        <p class="lede">Des parcours sélectifs et compétitifs qui témoignent de la constance du travail fourni.</p>
+      </div>
 
-    function persistOrder() {
-      localStorage.setItem(LS_ORDER, JSON.stringify(state.order));
-    }
-    function persistImages() {
-      localStorage.setItem(LS_IMAGES, JSON.stringify(state.images));
-    }
-    function persistView() {
-      localStorage.setItem(LS_VIEW, state.viewMode);
-    }
+      <div class="dist-grid" id="distGrid"><!-- injecté par JS --></div>
+    </div>
+  </section>
 
-    /* ---------------------------------------------------------------
-     * 3) DOM refs
-     * ------------------------------------------------------------- */
-    var section = document.getElementById("projects");
-    var track = document.getElementById("pgTrack");
-    var viewToggle = document.getElementById("pgViewToggle");
-    var viewToggleLabel = document.getElementById("pgViewToggleLabel");
-    var editToggle = document.getElementById("pgEditToggle");
-    var editToggleLabel = document.getElementById("pgEditToggleLabel");
-    var resetBtn = document.getElementById("pgResetBtn");
-    var nav = document.getElementById("pgNav");
-    var dotsWrap = document.getElementById("pgDots");
-    var prevBtn = document.getElementById("pgPrev");
-    var nextBtn = document.getElementById("pgNext");
-    var toastEl = document.getElementById("pgToast");
+  <!-- ===================== ENGAGEMENT ===================== -->
+  <section id="engagement">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Engagement</div>
+        <h2>Au-delà du code : la voix des enfants et des femmes.</h2>
+        <p class="lede">Depuis 2019, un engagement continu pour les droits de l'enfance, porté en parallèle d'une carrière technique.</p>
+      </div>
 
-    /* ---------------------------------------------------------------
-     * 4) Card markup builders
-     * ------------------------------------------------------------- */
-    function placeholderGlyph(name) {
-      // First letters of up to two words — clean typographic mark, no icon clichés.
-      var words = name.replace(/[^\w\s]/g, "").trim().split(/\s+/).filter(Boolean);
-      if (words.length === 0) return "??";
-      if (words.length === 1) return words[0].slice(0, 2).toUpperCase();
-      return (words[0][0] + words[1][0]).toUpperCase();
-    }
+      <div class="engage-grid">
+        <div class="engage-list">
+          <div class="engage-item reveal">
+            <span class="e-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg></span>
+            <div><h4>ANACEB — Secrétaire Général du Conseil d'Administration</h4><p>Membre actif depuis mai 2019, point focal Inclusion au sein de l'Association Nationale des Conseils d'Enfants du Bénin.</p></div>
+          </div>
+          <div class="engage-item reveal reveal-d1">
+            <span class="e-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg></span>
+            <div><h4>U-Report — Membre, sous l'égide de l'UNICEF</h4><p>Contribution à des campagnes de sensibilisation et de mobilisation citoyenne à travers la plateforme UNICEF.</p></div>
+          </div>
+          <div class="engage-item reveal reveal-d2">
+            <span class="e-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg></span>
+            <div><h4>CCCE de Sèmè-Podji — Secrétaire Général Adjoint</h4><p>Depuis 2022, engagement au Conseil Consultatif Communal des Enfants sur les questions de plaidoyer local.</p></div>
+          </div>
+          <div class="engage-item reveal reveal-d3">
+            <span class="e-mark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c0 2 3 3 6 3s6-1 6-3v-5"></path></svg></span>
+            <div><h4>Formateur — Ford High Tech &amp; Senior Mood_Dev</h4><p>Cours d'informatique pour apprenants du primaire et du collège, et organisation de MasterClass tech &amp; sociales depuis décembre 2023.</p></div>
+          </div>
+        </div>
 
-    function buildCardHTML(p) {
-      var customImg = state.images[p.id];
-      var coverInner = "";
+        <div class="quote-card reveal reveal-d2">
+          <span class="qmark">"</span>
+          <p>Mon engagement en faveur des droits des enfants et des femmes m'a amené à participer à de nombreux forums, ateliers, émissions radio, campagnes de sensibilisation et activités communautaires.</p>
+          <footer>— Extrait de mon parcours associatif, depuis 2019</footer>
+          <a href="https://web.facebook.com/anacebenin" target="_blank" rel="noopener" class="btn btn-primary hl-cta" style="margin-top: 10px;">
+          Découvrir l'ANACEB
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+        </a>
+        </div>
 
-      if (customImg) {
-        coverInner = '<img src="' + escapeAttr(customImg) + '" alt="' + escapeAttr(p.name) + '" loading="lazy">';
-      } else if (p.img) {
-        coverInner = '<img src="' + escapeAttr(p.img) + '" alt="' + escapeAttr(p.name) + '" loading="lazy">';
-      } else if (p.liveUrl) {
-        coverInner =
-          '<div class="pg-live-frame-wrap">' +
-            '<iframe src="' + escapeAttr(p.liveUrl) + '" loading="lazy" tabindex="-1" aria-hidden="true" title="Aperçu de ' + escapeAttr(p.name) + '"></iframe>' +
-          '</div>';
-      } else {
-        coverInner =
-          '<div class="pg-placeholder">' +
-            '<span class="pg-glyph">' + placeholderGlyph(p.name) + '</span>' +
-            '<span class="pg-mono">' + escapeHTML(p.lang || "Code") + '</span>' +
-          '</div>';
-      }
+        
+      </div>
+    </div>
+  </section>
 
-      var badge = p.liveUrl
-        ? '<span class="pg-badge"><span class="pg-dot"></span>En ligne</span>'
-        : "";
+  <!-- ===================== PROJETS ===================== -->
+  <section id="projets" class="section-bg">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Projets</div>
+        <h2>Une sélection de réalisations.</h2>
+        <p class="lede">Applications web &amp; mobiles, APIs, outils d'automatisation et plateformes déployées — filtrez par catégorie.</p>
+      </div>
 
-      var visBadge = p.visibility === "private"
-        ? '<span class="pg-vis">Privé</span>'
-        : "";
+      <div class="filter-row" id="filterRow">
+        <button class="filter-btn is-active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="web">Web</button>
+        <button class="filter-btn" data-filter="mobile">Mobile</button>
+        <button class="filter-btn" data-filter="auto">Automatisation &amp; Data</button>
+        <button class="filter-btn" data-filter="service">Services</button>
+      </div>
 
-      var primaryHref = p.liveUrl || p.repoUrl;
-      var primaryLabel = p.liveUrl ? "Voir le projet" : "Voir sur GitHub";
+      <div class="proj-grid" id="projGrid"></div>
+    </div>
+  </section>
 
+  <!-- ===================== CONTACT ===================== -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="contact-box reveal">
+        <div class="weave-bg"></div>
+        <div class="contact-inner">
+          <div class="eyebrow" style="justify-content:center;">Contact</div>
+          <h2>Un projet en tête ? Parlons-en.</h2>
+          <p class="lede">Missions freelance, collaborations ou simple échange — je réponds sous 24 à 48h.</p>
+          <div class="contact-actions">
+            <a href="mailto:abdulmoustapha64@gmail.com" class="btn btn-primary">abdulmoustapha64@gmail.com</a>
+            <a href="https://wa.me/22961648007" target="_blank" rel="noopener" class="btn btn-ghost">Écrire sur WhatsApp</a>
+          </div>
+          <div class="contact-socials" id="contactSocialRow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;width:100%;">
+    <span class="fl">© <span id="year"></span> Hafiz MOUSTAPHA</span>
+    <div class="fr">
+      <a href="#hero">Haut de page</a>
+      <a href="assets/cv_2p_fr.pdf" download>CV (PDF)</a>
+    </div>
+  </div>
+</footer>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse d'images">
+  <button type="button" class="lb-close" id="lbClose" aria-label="Fermer">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+  </button>
+  <button type="button" class="lb-prev" id="lbPrev" aria-label="Image précédente">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
+  </button>
+  <figure>
+    <img id="lbImg" src="" alt="">
+    <figcaption id="lbCaption"></figcaption>
+  </figure>
+  <button type="button" class="lb-next" id="lbNext" aria-label="Image suivante">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+  </button>
+</div>
+
+<button class="to-top" id="toTop" aria-label="Retour en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- Socials (single source of truth) ---------- */
+  var SOCIALS = [
+    { name:"GitHub", url:"https://github.com/AbdulHafizMous", icon:'<path d="M9 19c-4.3 1.4-4.3-2.5-6-3m12 5v-3.5c0-1 .1-1.4-.5-2 2.8-.3 5.5-1.4 5.5-6a4.6 4.6 0 0 0-1.3-3.2 4.2 4.2 0 0 0-.1-3.2s-1.1-.3-3.5 1.3a12.3 12.3 0 0 0-6.2 0C6.5 2.8 5.4 3.1 5.4 3.1a4.2 4.2 0 0 0-.1 3.2A4.6 4.6 0 0 0 4 9.5c0 4.6 2.7 5.7 5.5 6-.6.6-.6 1.1-.5 2V21"></path>' },
+    { name:"LinkedIn", url:"https://www.linkedin.com/in/abdul-moustapha-04b92b24b", icon:'<path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4V8h4v1.5A6 6 0 0 1 16 8z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle>' },
+    { name:"Instagram", url:"https://www.instagram.com/abdulmoustapha64", icon:'<rect x="2" y="2" width="20" height="20" rx="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>' },
+    { name:"YouTube", url:"https://www.youtube.com/@seniormood_dev", icon:'<path d="M22.5 6.2a2.8 2.8 0 0 0-2-2C18.9 3.7 12 3.7 12 3.7s-6.9 0-8.5.5a2.8 2.8 0 0 0-2 2A29.9 29.9 0 0 0 1 12a29.9 29.9 0 0 0 .5 5.8 2.8 2.8 0 0 0 2 2c1.6.5 8.5.5 8.5.5s6.9 0 8.5-.5a2.8 2.8 0 0 0 2-2A29.9 29.9 0 0 0 23 12a29.9 29.9 0 0 0-.5-5.8z"></path><polygon points="9.8 15.5 15.8 12 9.8 8.5"></polygon>' },
+    { name:"Facebook", url:"https://www.facebook.com/profile.php?id=61581031372208", icon:'<path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>' },
+    { name:"WhatsApp", url:"https://wa.me/22961648007", icon:'<path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path>' }
+  ];
+
+  function renderSocials(container){
+    if(!container) return;
+    container.innerHTML = SOCIALS.map(function(s){
+      return '<a class="social-link" href="'+s.url+'" target="_blank" rel="noopener" aria-label="'+s.name+'" title="'+s.name+'">'+
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">'+s.icon+'</svg></a>';
+    }).join("");
+  }
+  renderSocials(document.getElementById("socialRow"));
+  renderSocials(document.getElementById("contactSocialRow"));
+
+  /* ---------------------------------------------------------------
+   * Shared lightbox — used by both distinction galleries and
+   * project covers. Any part of the site can call openLightbox().
+   * ------------------------------------------------------------- */
+  var lightbox = document.getElementById("lightbox");
+  var lbImg = document.getElementById("lbImg");
+  var lbCaption = document.getElementById("lbCaption");
+  var lbPrev = document.getElementById("lbPrev");
+  var lbNext = document.getElementById("lbNext");
+  var lbClose = document.getElementById("lbClose");
+  var lbState = { images:[], index:0, label:"" };
+
+  function updateLightbox(){
+    var total = lbState.images.length;
+    lbImg.src = lbState.images[lbState.index];
+    lbImg.alt = lbState.label + " — visuel " + (lbState.index+1);
+    lbCaption.textContent = lbState.label + (total > 1 ? " · " + (lbState.index+1) + " / " + total : "");
+    var multi = total > 1;
+    lbPrev.style.display = multi ? "flex" : "none";
+    lbNext.style.display = multi ? "flex" : "none";
+  }
+  function openLightbox(images, index, label){
+    if(!images || !images.length) return;
+    lbState = { images:images, index:index||0, label:label||"" };
+    updateLightbox();
+    lightbox.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+  function closeLightbox(){
+    lightbox.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+  function lbStep(dir){
+    lbState.index = (lbState.index + dir + lbState.images.length) % lbState.images.length;
+    updateLightbox();
+  }
+  lbClose.addEventListener("click", closeLightbox);
+  lbPrev.addEventListener("click", function(){ lbStep(-1); });
+  lbNext.addEventListener("click", function(){ lbStep(1); });
+  lightbox.addEventListener("click", function(e){ if(e.target === lightbox) closeLightbox(); });
+  document.addEventListener("keydown", function(e){
+    if(!lightbox.classList.contains("is-open")) return;
+    if(e.key === "Escape") closeLightbox();
+    if(e.key === "ArrowLeft") lbStep(-1);
+    if(e.key === "ArrowRight") lbStep(1);
+  });
+
+  /* ---------------------------------------------------------------
+   * Adaptive image gallery mosaic — renders 0..N images cleanly.
+   * Used by distinction cards; layout adapts to the image count.
+   * ------------------------------------------------------------- */
+  function renderMosaic(images, label){
+    if(!images || !images.length) return "";
+    var shown = images.slice(0, 4);
+    var countKey = images.length >= 5 ? "gt4" : String(images.length);
+    var tiles = shown.map(function(src, i){
+      var isLastOverflow = (images.length > 4 && i === 3);
       return (
-        '<div class="project-card" data-id="' + p.id + '" draggable="false">' +
-          '<button type="button" class="pg-drag-handle" aria-label="Déplacer ' + escapeAttr(p.name) + '" title="Glisser pour réordonner">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="6" r="1.2"></circle><circle cx="9" cy="12" r="1.2"></circle><circle cx="9" cy="18" r="1.2"></circle><circle cx="15" cy="6" r="1.2"></circle><circle cx="15" cy="12" r="1.2"></circle><circle cx="15" cy="18" r="1.2"></circle></svg>' +
-          '</button>' +
-          '<button type="button" class="pg-edit-cover" data-id="' + p.id + '" aria-label="Changer l\'image de couverture" title="Changer l\'image de couverture">' +
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>' +
-            '<input type="file" accept="image/*" class="pg-cover-input" data-id="' + p.id + '">' +
-          '</button>' +
-          '<div class="pg-cover">' +
-            coverInner +
-            badge +
-            visBadge +
-          '</div>' +
-          '<div class="project-info">' +
-            '<div class="pg-meta">' +
-              '<span class="pg-lang"><span class="pg-lang-dot" style="background:' + escapeAttr(p.langColor || "#999") + '"></span>' + escapeHTML(p.lang || "") + '</span>' +
-            '</div>' +
-            '<h4>' + escapeHTML(p.name) + '</h4>' +
-            '<p>' + escapeHTML(p.desc) + '</p>' +
-            '<div class="d-flex align-items-center gap-3">' +
-              '<a href="' + escapeAttr(primaryHref) + '" target="_blank" rel="noopener" class="read-more"><span>' + primaryLabel + '</span><i class="bi bi-arrow-right"></i></a>' +
-              (p.liveUrl ? '<a href="' + escapeAttr(p.repoUrl) + '" target="_blank" rel="noopener" class="read-more" style="opacity:.65"><i class="bx bxl-github"></i></a>' : '') +
-            '</div>' +
-          '</div>' +
+        '<div class="gal-tile" data-i="'+i+'">'+
+          '<img src="'+src.replace(/"/g,"&quot;")+'" alt="'+(label||"")+' — visuel '+(i+1)+'" loading="lazy">'+
+          (isLastOverflow ? '<span class="gal-more">+'+(images.length-4)+'</span>' : '')+
+        '</div>'
+      );
+    }).join("");
+    return '<div class="gal-mosaic" data-count="'+countKey+'">'+tiles+'</div>';
+  }
+
+  function attachMosaicHandlers(root, indexAttr, dataProvider){
+    // dataProvider(realIdx) returns { images:[...], label:"..." }
+    // realIdx is read from the closest [indexAttr] ancestor, so mosaics
+    // stay correctly matched even when some cards have no gallery at all.
+    root.querySelectorAll(".gal-mosaic").forEach(function(mosaic){
+      var host = mosaic.closest("[" + indexAttr + "]");
+      if(!host) return;
+      var realIdx = +host.getAttribute(indexAttr);
+      var data = dataProvider(realIdx);
+      if(!data || !data.images) return;
+      mosaic.querySelectorAll(".gal-tile").forEach(function(tile){
+        tile.addEventListener("click", function(){
+          openLightbox(data.images, +tile.getAttribute("data-i"), data.label || "");
+        });
+      });
+    });
+    markBrokenImages(root);
+  }
+
+  /* ---------- Nav scroll state + mobile toggle ---------- */
+  var siteNav = document.getElementById("siteNav");
+  window.addEventListener("scroll", function(){
+    siteNav.classList.toggle("is-scrolled", window.scrollY > 12);
+    toTop.classList.toggle("is-visible", window.scrollY > 700);
+  }, { passive:true });
+
+  var burger = document.getElementById("navBurger");
+  var navLinks = document.getElementById("navLinks");
+  burger.addEventListener("click", function(){
+    burger.classList.toggle("is-open");
+    navLinks.classList.toggle("is-open");
+  });
+  navLinks.querySelectorAll("a").forEach(function(a){
+    a.addEventListener("click", function(){
+      burger.classList.remove("is-open");
+      navLinks.classList.remove("is-open");
+    });
+  });
+
+  /* active link on scroll */
+  var sections = ["about","parcours","competences","projets","distinctions","contact"].map(function(id){
+    return document.getElementById(id);
+  }).filter(Boolean);
+  var navA = Array.prototype.slice.call(document.querySelectorAll(".nav-link"));
+  var navObserver = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        var id = entry.target.id;
+        navA.forEach(function(a){
+          a.classList.toggle("is-active", a.getAttribute("href") === "#"+id);
+        });
+      }
+    });
+  }, { rootMargin:"-40% 0px -50% 0px" });
+  sections.forEach(function(s){ navObserver.observe(s); });
+
+  /* ---------- Reveal on scroll ---------- */
+  var revealEls = document.querySelectorAll(".reveal");
+  if("IntersectionObserver" in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(entry.isIntersecting){
+          entry.target.classList.add("is-in");
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold:0.12 });
+    revealEls.forEach(function(el){ io.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add("is-in"); });
+  }
+
+  /* ---------- Hero role typing ---------- */
+  var roles = ["Développeur Full-Stack orienté Mobile.", "Fondateur de Senior Mood_Dev.", "Bâtisseur de solutions d'automatisation.", "Activiste pour les droits de l'enfance."];
+  var typedEl = document.getElementById("typedRole");
+  var ri = 0, ci = 0, deleting = false;
+  function typeLoop(){
+    var word = roles[ri];
+    if(!deleting){
+      ci++;
+      typedEl.textContent = word.slice(0, ci);
+      if(ci === word.length){ deleting = true; setTimeout(typeLoop, 1600); return; }
+    } else {
+      ci--;
+      typedEl.textContent = word.slice(0, ci);
+      if(ci === 0){ deleting = false; ri = (ri+1) % roles.length; }
+    }
+    setTimeout(typeLoop, deleting ? 28 : 48);
+  }
+  typeLoop();
+
+  /* ---------- Avatar fallback (hide monogram if real photo loads) ---------- */
+  var img = document.querySelector(".avatar-card img");
+  var fallback = document.getElementById("avatarFallback");
+  img.addEventListener("load", function(){
+    if(img.naturalWidth > 1){ fallback.style.display = "none"; }
+  });
+
+  /* ---------------------------------------------------------------
+   * Distinctions data + render
+   * Each entry: { cat, title, desc, images:[...], link, size:"sm"|"lg" }
+   * - images: 0, 1, 2, 3, 4 or 5+ — the mosaic adapts automatically.
+   *   Drop real files in assets/img/distinctions/ and list their
+   *   paths here (or leave the array empty to hide the gallery).
+   * - link: optional "en savoir plus" URL, opens in a new tab.
+   *   Leave as "" to hide the link.
+   * ------------------------------------------------------------- */
+  var DISTINCTIONS = [
+    {
+      cat:"Développement", size:"md",
+      title:"1er Prix des DCA — Meilleur Développeur Mobile",
+      desc:"Lauréat du premier prix, catégorie meilleur développeur mobile, distingué parmi les participants du concours DCA.",
+      images:["assets/img/distinctions/dca-2.jpg","assets/img/distinctions/dca-5.jpeg","assets/img/distinctions/dca-6.jpeg"],
+      link:"https://web.facebook.com/share/p/1DrrqEdsqz/"
+    },
+    {
+      cat:"Entrepreneuriat", size:"lg",
+      title:"Incubadora Con Valores",
+      desc:"Retenu parmi une sélection d'entrepreneurs pour ce programme international d'incubation.",
+      images:["assets/img/distinctions/incubadora-1.png","assets/img/distinctions/incubadora-2.png","assets/img/distinctions/incubadora-3.png","assets/img/distinctions/incubadora-4.png"],
+      link:""
+    },
+    {
+      cat:"Bourse & Leadership lycéen", size:"sm",
+      title:"Bourse Complète d'Excellence du Gouvernement",
+      desc:"Octroyée pour l'ensemble du cursus de Licence Professionnelle à l'ENEAM. <br>—<br>  1er Délégué d'établissement — trois années consécutives : garant des relations académiques et médiateur clé entre apprenants, corps enseignant et administration.",
+      images:[], link:""
+    },
+    {
+      cat:"Spécialisation IA", size:"sm",
+      title:"Bourse E-learning en Intelligence Artificielle",
+      desc:"BHN Academy × DataCamp — sélectionné pour ce programme de haute spécialisation, très sélectif.",
+      images:["assets/img/distinctions/bhn-1.png", "assets/img/distinctions/bhn-1.png"],
+      link:""
+    },
+    
+    {
+      cat:"Entrepreneuriat", size:"sm",
+      title:"Aspire Leader Program",
+      desc:"Sélectionné pour ce programme d'élite en leadership et mentorat entrepreneurial.",
+      images:["assets/img/distinctions/aspire-1.png"],
+      link:""
+    },
+    
+  ];
+
+  var distGrid = document.getElementById("distGrid");
+  var externalIconSm = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>';
+
+  function distCardHTML(d, i){
+    var link = d.link ? '<a class="dist-link" href="'+d.link+'" target="_blank" rel="noopener">Plus de détails '+externalIconSm+'</a>' : "";
+    return (
+      '<div class="dist-card'+(d.size==="lg"?" is-lg":"")+' reveal reveal-d'+Math.min(i,4)+'" data-dist-idx="'+i+'">'+
+        '<span class="dist-num">'+d.cat+'</span>'+
+        '<h4>'+d.title+'</h4>'+
+        '<p>'+d.desc+'</p>'+
+        renderMosaic(d.images, d.title)+
+        link+
+      '</div>'
+    );
+  }
+
+  function renderDistinctions(){
+    distGrid.innerHTML = DISTINCTIONS.map(distCardHTML).join("");
+    var cards = distGrid.querySelectorAll(".reveal");
+    if("IntersectionObserver" in window){
+      var io3 = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry){
+          if(entry.isIntersecting){ entry.target.classList.add("is-in"); io3.unobserve(entry.target); }
+        });
+      }, { threshold:0.1 });
+      cards.forEach(function(c){ io3.observe(c); });
+    } else {
+      cards.forEach(function(c){ c.classList.add("is-in"); });
+    }
+    attachMosaicHandlers(distGrid, "data-dist-idx", function(realIdx){
+      var d = DISTINCTIONS[realIdx];
+      return d ? { images: d.images, label: d.title } : null;
+    });
+  }
+  renderDistinctions();
+
+  /* ---------- Projects data + render + filter ---------- */
+  var PROJECTS = [
+    { name:"Senior Mood", desc:"Site officiel de Senior Mood : agence digitale spécialisée dans la tech, l'IA et l'innovation — actualités, ressources et communauté.", repo:"https://github.com/AbdulHafizMous/smood", live:"https://smood.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"private" },
+    { name:"HeventZ", desc:"Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.", repo:"https://github.com/AbdulHafizMous/HeventZ", live:"https://hevent-z.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"public" },
+    { name:"Vizly.co", desc:"Application web orientée data & visualisation, conçue pour explorer l'information avec clarté.", repo:"https://github.com/AbdulHafizMous/vizly.co", live:"https://vizly-co-beta.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private" },
+    { name:"Koro", desc:"Projet web déployé, exploratoire et orienté interface utilisateur soignée.", repo:"https://github.com/AbdulHafizMous/koro", live:"https://koro-h7cs.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"public" },
+    { name:"OutilSco", desc:"Plateforme complète de gestion scolaire — élèves, notes, bulletins — réalisée pour Ford High Tech.", repo:"https://github.com/AbdulHafizMous/gp-backend", live:"https://outilsco.com/", lang:"PHP", color:"#4f5d95", cat:"web", visibility:"private" },
+    { name:"SweetChat", desc:"Application de chat instantané moderne et rapide, avec interface responsive.", repo:"https://github.com/AbdulHafizMous/alnyf4tech", live:"https://sweet-chat-doc.vercel.app", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private" },
+    { name:"Grand Public", desc:"Application mobile Flutter liée à la plateforme Grand Public du Bénin.", repo:"https://github.com/AbdulHafizMous/gp-mobile", live:"https://grandpublic.bj", lang:"Dart", color:"#00b4ab", cat:"mobile", visibility:"public" },
+    { name:"Skipper", desc:"Géolocalisation et info-trafic pour le Bénin : itinéraires personnalisés, langues locales, marqueurs communautaires.", repo:"https://github.com/AbdulHafizMous/task-manager-wt", live:"https://skipper-vf.onrender.com/docs", lang:"Dart", color:"#00b4ab", cat:"mobile", visibility:"public" },
+    { name:"LeadFlow", desc:"Système Python de gestion et de suivi de prospects (leads) pour automatiser le pipeline commercial.", repo:"https://github.com/AbdulHafizMous/leadflow", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private", gallery:["assets/img/portfolio/leadflow.jpeg"] },
+    { name:"CSV Editor", desc:"Système simplifié de gestion de fichiers CSV, open source et modulable.", repo:"https://github.com/AbdulHafizMous/webschool", lang:"HTML", color:"#e34c26", cat:"web", visibility:"public" },
+    { name:"Haftuber", desc:"Outil Python autour de l'automatisation et de la manipulation de contenus.", repo:"https://github.com/AbdulHafizMous/haftuber", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private", gallery:[] },
+    { name:"ShortMaster", desc:"Outil web pour la gestion et le raccourcissement de liens.", repo:"https://github.com/AbdulHafizMous/shortmaster", lang:"HTML", color:"#e34c26", cat:"web", visibility:"private" },
+    { name:"LeadFlow", desc:"Système Python de gestion et de suivi de prospects (leads) pour automatiser le pipeline commercial.", repo:"https://github.com/AbdulHafizMous/leadflow", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private", gallery:["assets/img/portfolio/leadflow.jpeg"] },
+    { name:"Profile — Portfolio mono-page", desc:"Portfolio descriptif minimaliste, conçu pour présenter un profil en une seule page.", repo:"https://github.com/AbdulHafizMous/profile", lang:"HTML", color:"#e34c26", cat:"web", visibility:"public" },
+    { name:"Utils", desc:"Collection de scripts et utilitaires Python partagés avec la communauté.", repo:"https://github.com/AbdulHafizMous/utils", lang:"Python", color:"#3572a5", cat:"auto", visibility:"public" },
+    { name:"Hafiz Pro D-Line", desc:"Projet Python d'automatisation et de traitement de données personnalisé.", repo:"https://github.com/AbdulHafizMous/hafiz-pro-d-line", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private" },
+    { name:"Hafditor", desc:"Éditeur / outil Python pensé pour accélérer un flux de travail spécifique au quotidien.", repo:"https://github.com/AbdulHafizMous/hafditor", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private" },
+    { name:"LogHafo", desc:"Outil Python de journalisation (logging) et de suivi d'activité applicative.", repo:"https://github.com/AbdulHafizMous/loghafo", lang:"Python", color:"#3572a5", cat:"auto", visibility:"private" },
+    { name:"Shared", desc:"Librairie de composants et utilitaires TypeScript partagés entre plusieurs projets.", repo:"https://github.com/AbdulHafizMous/shared", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"public" },
+    { name:"Benin Child Voice", desc:"Plateforme dédiée à la voix et aux droits des enfants au Bénin — activisme & sensibilisation.", repo:"https://github.com/AbdulHafizMous/benin-child-voice", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private" },
+    { name:"Public APIs", desc:"Liste collaborative et organisée d'APIs publiques gratuites, en contribution open source.", repo:"https://github.com/AbdulHafizMous/public-apis", lang:"Python", color:"#3572a5", cat:"auto", visibility:"public" },
+    { name:"TaskM — WT", desc:"Application mobile Flutter de gestion de tâches.", repo:"https://github.com/AbdulHafizMous/taskm-wt", lang:"Dart", color:"#00b4ab", cat:"mobile", visibility:"public" },
+    { name:"TaskM — Web", desc:"Version web TypeScript de l'application de gestion de tâches TaskM.", repo:"https://github.com/AbdulHafizMous/taskm-web", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"public" },
+    { name:"Kkiapay API", desc:"Intégration backend autour de l'API de paiement Kkiapay.", repo:"https://github.com/AbdulHafizMous/kkiapay-api", lang:"Blade", color:"#f7523f", cat:"web", visibility:"public" },
+    { name:"Senior Mood — Agence ComeUp", desc:"Agence digitale sur ComeUp : sites web, automatisations, bots, design et services numériques sur mesure.", repo:"https://comeup.com/fr/@seniormood", lang:"Service", color:"#999999", cat:"service", visibility:"public", isService:true },
+    { name:"Profil Upwork", desc:"Freelancer international : développement web & mobile, intégration d'API, automatisations, solutions SaaS.", repo:"https://www.upwork.com/freelancers/~01d0e76ce5eefeb2f2", lang:"Service", color:"#999999", cat:"service", visibility:"public", isService:true }
+  ];
+
+  var projGrid = document.getElementById("projGrid");
+  var externalIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>';
+  var codeIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></svg>';
+
+  var chevronLeftIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
+  var chevronRightIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
+
+  function escapeAttr(s){ return String(s).replace(/"/g, "&quot;"); }
+
+  function buildCover(p, idx){
+    // Priority: live iframe preview > image gallery carousel > placeholder
+    if(p.live){
+      return (
+        '<div class="proj-cover">'+
+          '<div class="pc-frame-wrap"><iframe src="'+escapeAttr(p.live)+'" loading="lazy" tabindex="-1" aria-hidden="true" title="Aperçu de '+escapeAttr(p.name)+'"></iframe></div>'+
+          '<span class="pc-live-badge"><span class="pc-dot"></span> Aperçu en direct</span>'+
         '</div>'
       );
     }
+    if(p.gallery && p.gallery.length){
+      var imgs = p.gallery;
+      var slides = imgs.map(function(src, i){
+        return '<div class="pc-slide'+(i===0?' is-active':'')+'" data-i="'+i+'"><img src="'+escapeAttr(src)+'" alt="'+escapeAttr(p.name)+' — visuel '+(i+1)+'" loading="lazy"></div>';
+      }).join("");
+      var dots = imgs.length > 1 ? '<div class="pc-dots">'+imgs.map(function(_,i){ return '<span class="'+(i===0?'is-active':'')+'"></span>'; }).join("")+'</div>' : "";
+      var arrows = imgs.length > 1 ? (
+        '<button type="button" class="pc-arrow pc-prev" aria-label="Image précédente">'+chevronLeftIcon+'</button>'+
+        '<button type="button" class="pc-arrow pc-next" aria-label="Image suivante">'+chevronRightIcon+'</button>'
+      ) : "";
+      return (
+        '<div class="proj-cover">'+
+          '<div class="pc-carousel" data-proj-idx="'+idx+'">'+slides+dots+arrows+'</div>'+
+          '<span class="pc-badge">Galerie · '+imgs.length+'</span>'+
+        '</div>'
+      );
+    }
+    return (
+      '<div class="proj-cover">'+
+        '<div class="pc-placeholder"><span class="pc-glyph">&lt;/&gt;</span><span class="pc-mono">Pas d\'aperçu</span></div>'+
+      '</div>'
+    );
+  }
 
-    function escapeHTML(s) {
-      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
-        return ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c];
+  function cardHTML(p, idx){
+    var links = "";
+    if(p.isService){
+      links += '<a class="proj-link" href="'+p.repo+'" target="_blank" rel="noopener">'+externalIcon+' Voir le profil</a>';
+    } else {
+      if(p.visibility === "public"){
+        links += '<a class="proj-link" href="'+p.repo+'" target="_blank" rel="noopener">'+codeIcon+' Code</a>';
+      }
+      if(p.live){
+        links += '<a class="proj-link" href="'+p.live+'" target="_blank" rel="noopener">'+externalIcon+' Démo</a>';
+      }
+      if(p.visibility === "private" && !p.live){
+        links += '<span class="proj-badge">Projet privé</span>';
+      }
+    }
+    return (
+      '<div class="proj-card reveal" data-cat="'+p.cat+'">'+
+        buildCover(p, idx)+
+        '<div class="proj-body">'+
+          '<div class="proj-top">'+
+            '<span class="proj-lang"><i style="background:'+p.color+'"></i>'+p.lang+'</span>'+
+            (p.visibility === "private" ? '<span class="proj-badge">Privé</span>' : '')+
+          '</div>'+
+          '<h4>'+p.name+'</h4>'+
+          '<p>'+p.desc+'</p>'+
+          '<div class="proj-links">'+links+'</div>'+
+        '</div>'+
+      '</div>'
+    );
+  }
+
+  var PAGE_SIZE = 9;
+  var currentFilter = "all";
+  var visibleCount = PAGE_SIZE;
+
+  function renderProjects(){
+    var list = PROJECTS.filter(function(p){ return currentFilter === "all" || p.cat === currentFilter; });
+    var slice = list.slice(0, visibleCount);
+    projGrid.innerHTML = slice.map(function(p, i){ return cardHTML(p, i); }).join("");
+
+    var existingBtn = document.getElementById("projMoreBtn");
+    if(existingBtn) existingBtn.parentElement.remove();
+
+    if(list.length > visibleCount){
+      var wrap = document.createElement("div");
+      wrap.className = "proj-more";
+      wrap.innerHTML = '<button id="projMoreBtn" class="btn btn-ghost">Voir plus de projets</button>';
+      projGrid.parentElement.appendChild(wrap);
+      document.getElementById("projMoreBtn").addEventListener("click", function(){
+        visibleCount += PAGE_SIZE;
+        renderProjects();
       });
     }
-    function escapeAttr(s) { return escapeHTML(s); }
 
-    /* ---------------------------------------------------------------
-     * 5) Render
-     * ------------------------------------------------------------- */
-    var io; // IntersectionObserver for reveal animation
-
-    function orderedProjects() {
-      return state.order.map(function (id) { return BY_ID[id]; }).filter(Boolean);
-    }
-
-    function render() {
-      var list = orderedProjects();
-
-      section.classList.toggle("pg-scroll-mode", state.viewMode === "scroll");
-      section.classList.toggle("pg-edit-mode", state.editMode);
-
-      var visibleList = list;
-      if (state.viewMode === "grid") {
-        var start = state.gridPage * GRID_PAGE_SIZE;
-        visibleList = list.slice(start, start + GRID_PAGE_SIZE);
-        // if page is out of range (e.g. after reorder shrink), clamp
-        if (visibleList.length === 0 && state.gridPage > 0) {
-          state.gridPage = 0;
-          visibleList = list.slice(0, GRID_PAGE_SIZE);
-        }
-      }
-
-      track.innerHTML = visibleList.map(buildCardHTML).join("");
-
-      attachCardHandlers();
-      animateIn();
-      renderNav(list.length);
-    }
-
-    function animateIn() {
-      if (io) io.disconnect();
-      var cards = track.querySelectorAll(".project-card");
-      if (!("IntersectionObserver" in window)) {
-        cards.forEach(function (c) { c.classList.add("pg-in"); });
-        return;
-      }
-      io = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry, i) {
-          if (entry.isIntersecting) {
-            var el = entry.target;
-            var delay = Array.prototype.indexOf.call(cards, el) * 60;
-            setTimeout(function () { el.classList.add("pg-in"); }, delay);
-            io.unobserve(el);
+    var newCards = projGrid.querySelectorAll(".reveal");
+    if("IntersectionObserver" in window){
+      var io2 = new IntersectionObserver(function(entries){
+        entries.forEach(function(entry, i){
+          if(entry.isIntersecting){
+            setTimeout(function(){ entry.target.classList.add("is-in"); }, i*40);
+            io2.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.12 });
-      cards.forEach(function (c) { io.observe(c); });
+      }, { threshold:0.08 });
+      newCards.forEach(function(c){ io2.observe(c); });
+    } else {
+      newCards.forEach(function(c){ c.classList.add("is-in"); });
     }
 
-    function renderNav(totalCount) {
-      if (state.viewMode === "grid") {
-        var totalPages = Math.max(1, Math.ceil(totalCount / GRID_PAGE_SIZE));
-        if (totalPages > 1) {
-          nav.style.display = "flex";
-          buildDots(totalPages, state.gridPage, function (i) {
-            state.gridPage = i;
-            render();
-          });
-        } else {
-          nav.style.display = "none";
-        }
-        return;
+    attachCoverHandlers(slice);
+  }
+
+  /* ---------- Placeholder fallback for missing gallery images ---------- */
+  function markBrokenImages(root){
+    root.querySelectorAll(".gal-tile img, .pc-slide img").forEach(function(img){
+      img.addEventListener("error", function(){
+        var tile = img.closest(".gal-tile, .pc-slide");
+        if(tile){ tile.classList.add("is-empty"); tile.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></svg><span>Visuel à ajouter</span>'; }
+      }, { once:true });
+    });
+  }
+
+  /* ---------- Project cover carousels: nav + click-to-lightbox ---------- */
+  function attachCoverHandlers(list){
+    projGrid.querySelectorAll(".pc-carousel").forEach(function(carousel){
+      var idx = +carousel.getAttribute("data-proj-idx");
+      var proj = list[idx];
+      if(!proj || !proj.gallery) return;
+      var slides = carousel.querySelectorAll(".pc-slide");
+      var dots = carousel.querySelectorAll(".pc-dots span");
+      var current = 0;
+
+      function show(n){
+        current = (n + slides.length) % slides.length;
+        slides.forEach(function(s,i){ s.classList.toggle("is-active", i === current); });
+        dots.forEach(function(d,i){ d.classList.toggle("is-active", i === current); });
       }
-      // scroll mode: nav always available, dots reflect scroll position
-      nav.style.display = "flex";
-      buildDots(Math.max(1, Math.min(totalCount, 8)), 0, null, true);
-    }
 
-    function buildDots(count, activeIndex, onClick, isScrollMode) {
-      dotsWrap.innerHTML = "";
-      for (var i = 0; i < count; i++) {
-        var d = document.createElement("span");
-        if (i === activeIndex) d.classList.add("is-active");
-        if (onClick) {
-          d.style.cursor = "pointer";
-          d.addEventListener("click", function (idx) {
-            return function () { onClick(idx); };
-          }(i));
-        }
-        dotsWrap.appendChild(d);
-      }
-      if (isScrollMode) updateScrollDots();
-    }
+      var prevBtn = carousel.querySelector(".pc-prev");
+      var nextBtn = carousel.querySelector(".pc-next");
+      if(prevBtn) prevBtn.addEventListener("click", function(e){ e.stopPropagation(); show(current-1); });
+      if(nextBtn) nextBtn.addEventListener("click", function(e){ e.stopPropagation(); show(current+1); });
 
-    function updateScrollDots() {
-      var dots = dotsWrap.querySelectorAll("span");
-      if (!dots.length) return;
-      var track2 = track;
-      var max = track2.scrollWidth - track2.clientWidth;
-      var ratio = max > 0 ? track2.scrollLeft / max : 0;
-      var idx = Math.min(dots.length - 1, Math.round(ratio * (dots.length - 1)));
-      dots.forEach(function (d, i) { d.classList.toggle("is-active", i === idx); });
-    }
-
-    /* ---------------------------------------------------------------
-     * 6) Card-level handlers: cover upload, drag reorder
-     * ------------------------------------------------------------- */
-    function attachCardHandlers() {
-      track.querySelectorAll(".pg-cover-input").forEach(function (input) {
-        input.addEventListener("change", function (e) {
-          var id = input.getAttribute("data-id");
-          var file = e.target.files && e.target.files[0];
-          if (!file) return;
-          var reader = new FileReader();
-          reader.onload = function (ev) {
-            state.images[id] = ev.target.result;
-            persistImages();
-            render();
-            showToast("Image mise à jour");
-          };
-          reader.readAsDataURL(file);
+      slides.forEach(function(slide, i){
+        slide.addEventListener("click", function(){
+          openLightbox(proj.gallery, i, proj.name);
         });
       });
-
-      // Drag & drop reordering (desktop) — only meaningful in edit mode
-      var cards = Array.prototype.slice.call(track.querySelectorAll(".project-card"));
-      cards.forEach(function (card) {
-        var handle = card.querySelector(".pg-drag-handle");
-
-        handle.addEventListener("mousedown", function () { card.setAttribute("draggable", "true"); });
-        handle.addEventListener("touchstart", function () { card.setAttribute("draggable", "true"); }, { passive: true });
-
-        card.addEventListener("dragstart", function (e) {
-          if (!state.editMode) { e.preventDefault(); return; }
-          card.classList.add("pg-dragging");
-          e.dataTransfer.effectAllowed = "move";
-          e.dataTransfer.setData("text/plain", card.getAttribute("data-id"));
-        });
-
-        card.addEventListener("dragend", function () {
-          card.classList.remove("pg-dragging");
-          card.setAttribute("draggable", "false");
-          track.querySelectorAll(".project-card").forEach(function (c) { c.classList.remove("pg-drag-over"); });
-        });
-
-        card.addEventListener("dragover", function (e) {
-          if (!state.editMode) return;
-          e.preventDefault();
-          card.classList.add("pg-drag-over");
-        });
-
-        card.addEventListener("dragleave", function () {
-          card.classList.remove("pg-drag-over");
-        });
-
-        card.addEventListener("drop", function (e) {
-          if (!state.editMode) return;
-          e.preventDefault();
-          card.classList.remove("pg-drag-over");
-          var draggedId = e.dataTransfer.getData("text/plain");
-          var targetId = card.getAttribute("data-id");
-          if (!draggedId || draggedId === targetId) return;
-          reorder(draggedId, targetId);
-        });
-      });
-    }
-
-    function reorder(draggedId, targetId) {
-      var order = state.order;
-      var from = order.indexOf(draggedId);
-      var to = order.indexOf(targetId);
-      if (from === -1 || to === -1) return;
-      order.splice(from, 1);
-      order.splice(to, 0, draggedId);
-      persistOrder();
-      render();
-    }
-
-    /* ---------------------------------------------------------------
-     * 7) Toolbar controls
-     * ------------------------------------------------------------- */
-    function setViewMode(mode) {
-      state.viewMode = mode;
-      state.gridPage = 0;
-      persistView();
-      viewToggle.classList.toggle("is-active", mode === "scroll");
-      viewToggle.setAttribute("aria-pressed", mode === "scroll" ? "true" : "false");
-      viewToggleLabel.textContent = mode === "scroll" ? "Voir en grille" : "Voir en défilement";
-      render();
-    }
-
-    viewToggle.addEventListener("click", function () {
-      setViewMode(state.viewMode === "grid" ? "scroll" : "grid");
     });
+    markBrokenImages(projGrid);
+  }
 
-    editToggle.addEventListener("click", function () {
-      state.editMode = !state.editMode;
-      editToggle.classList.toggle("is-active", state.editMode);
-      editToggle.setAttribute("aria-pressed", state.editMode ? "true" : "false");
-      editToggleLabel.textContent = state.editMode ? "Terminer" : "Réorganiser";
-      section.classList.toggle("pg-edit-mode", state.editMode);
-      if (state.editMode) showToast("Glissez les cartes ou changez leur image de couverture");
-    });
+  document.getElementById("filterRow").addEventListener("click", function(e){
+    var btn = e.target.closest(".filter-btn");
+    if(!btn) return;
+    document.querySelectorAll(".filter-btn").forEach(function(b){ b.classList.remove("is-active"); });
+    btn.classList.add("is-active");
+    currentFilter = btn.getAttribute("data-filter");
+    visibleCount = PAGE_SIZE;
+    renderProjects();
+  });
 
-    resetBtn.addEventListener("click", function () {
-      state.order = DEFAULT_ORDER.slice();
-      state.images = {};
-      state.gridPage = 0;
-      persistOrder();
-      persistImages();
-      render();
-      showToast("Ordre et images réinitialisés");
-    });
+  renderProjects();
 
-    prevBtn.addEventListener("click", function () {
-      if (state.viewMode === "grid") {
-        state.gridPage = Math.max(0, state.gridPage - 1);
-        render();
-      } else {
-        track.scrollBy({ left: -340, behavior: "smooth" });
-      }
-    });
+  /* ---------- Back to top ---------- */
+  var toTop = document.getElementById("toTop");
+  toTop.addEventListener("click", function(){
+    window.scrollTo({ top:0, behavior:"smooth" });
+  });
 
-    nextBtn.addEventListener("click", function () {
-      if (state.viewMode === "grid") {
-        var totalPages = Math.max(1, Math.ceil(orderedProjects().length / GRID_PAGE_SIZE));
-        state.gridPage = Math.min(totalPages - 1, state.gridPage + 1);
-        render();
-      } else {
-        track.scrollBy({ left: 340, behavior: "smooth" });
-      }
-    });
+  /* ---------- Footer year ---------- */
+  document.getElementById("year").textContent = new Date().getFullYear();
 
-    track.addEventListener("scroll", function () {
-      if (state.viewMode === "scroll") updateScrollDots();
-    }, { passive: true });
-
-    var toastTimer;
-    function showToast(msg) {
-      toastEl.textContent = msg;
-      toastEl.classList.add("is-visible");
-      clearTimeout(toastTimer);
-      toastTimer = setTimeout(function () { toastEl.classList.remove("is-visible"); }, 2400);
-    }
-
-    /* ---------------------------------------------------------------
-     * 8) Init
-     * ------------------------------------------------------------- */
-    if (state.viewMode === "scroll") {
-      viewToggle.classList.add("is-active");
-      viewToggle.setAttribute("aria-pressed", "true");
-      viewToggleLabel.textContent = "Voir en grille";
-    }
-
-    render();
-  })();
-  </script>
+})();
+</script>
 
 </body>
-
 </html>

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="g0" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0E1B16"/>
+      <stop offset="100%" stop-color="#1C3229"/>
+    </linearGradient>
+    <pattern id="p0" width="42" height="42" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <rect width="42" height="42" fill="none"/>
+      <line x1="0" y1="0" x2="0" y2="42" stroke="#E7B23D" stroke-opacity="0.06" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="800" height="600" fill="url(#g0)"/>
+  <rect width="800" height="600" fill="url(#p0)"/>
+  <text x="50%" y="47%" font-family="Georgia, serif" font-size="40" fill="#E7B23D" text-anchor="middle" font-style="italic">DCA</text>
+  <text x="50%" y="57%" font-family="monospace" font-size="16" letter-spacing="2" fill="#E7B23D" fill-opacity="0.6" text-anchor="middle">PHOTO A REMPLACER</text>
+</svg>
