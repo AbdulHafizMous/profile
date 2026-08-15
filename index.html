@@ -1334,7 +1334,7 @@
   /* ---------- Projects data + render + filter ---------- */
   var PROJECTS = [
     { name:"Senior Mood", desc:"Site officiel de Senior Mood : agence digitale spécialisée dans la tech, l'IA et l'innovation — actualités, ressources et communauté.", repo:"https://github.com/AbdulHafizMous/smood", live:"https://smood.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"private" },
-    { name:"HeventZ", desc:"Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.", repo:"https://github.com/AbdulHafizMous/HeventZ", live:"https://hevent-z.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private", gallery:["assets/img/portfolio/heventz.png"] },
+    { name:"HeventZ", desc:"Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.", repo:"https://github.com/AbdulHafizMous/HeventZ", live:"https://hevent-z.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"public", gallery:["assets/img/portfolio/heventz.png"] },
     { name:"Vizly.co", desc:"Application web orientée data & visualisation, conçue pour explorer l'information avec clarté.", repo:"https://github.com/AbdulHafizMous/vizly.co", live:"https://vizly-co-beta.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private" },
     { name:"Koro", desc:"Projet web déployé, exploratoire et orienté interface utilisateur soignée.", repo:"https://github.com/AbdulHafizMous/koro", live:"https://koro-h7cs.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"public" },
     { name:"OutilSco", desc:"Plateforme complète de gestion scolaire — élèves, notes, bulletins — réalisée pour Ford High Tech.", repo:"https://github.com/AbdulHafizMous/gp-backend", live:"https://outilsco.com/", lang:"PHP", color:"#4f5d95", cat:"web", visibility:"private" },
@@ -1371,7 +1371,7 @@
   function escapeAttr(s){ return String(s).replace(/"/g, "&quot;"); }
 
   function buildCover(p, idx){
-    if(p.live){
+    if(p.live && !(p.gallery && p.gallery.length)){
       return (
         '<div class="proj-cover">'+
           '<div class="pc-frame-wrap"><iframe src="'+escapeAttr(p.live)+'" loading="lazy" tabindex="-1" aria-hidden="true" title="Aperçu de '+escapeAttr(p.name)+'"></iframe></div>'+
