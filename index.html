@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Manrope:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230B1512'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='28' fill='%23E7B23D' text-anchor='middle'%3EAH%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/jpeg" href="assets/img/profile_fb.jpg">
 
 <style>
   /* ============ 1. TOKENS ============ */
@@ -180,7 +180,13 @@
     padding-top:140px; padding-bottom:80px;
     position:relative;
     overflow:hidden;
-    background: image(url('assets/img/banner.png'))
+    background-color:var(--bg);
+    background-image:
+      linear-gradient(180deg, rgba(11,21,18,0.72) 0%, rgba(11,21,18,0.88) 45%, var(--bg) 92%),
+      url('assets/img/banner.jpg');
+    background-position: center, center 28%;
+    background-size: cover, cover;
+    background-repeat: no-repeat, no-repeat;
   }
   .hero::before{
     content:"";
@@ -263,34 +269,36 @@
   .reveal.is-in{ opacity:1; transform:translateY(0); }
   .reveal-d1{ transition-delay:.08s; } .reveal-d2{ transition-delay:.16s; } .reveal-d3{ transition-delay:.24s; } .reveal-d4{ transition-delay:.32s; }
 
-  /* ============ 3b. MARQUEE BANNER ============ */
+  /* ============ 3b. MARQUEE BANNER (subtle divider, moved before footer) ============ */
   .marquee-banner{
     position:relative;
-    background:var(--gold);
-    color:#171009;
-    padding:14px 0;
+    background:transparent;
+    color:var(--ink-faint);
+    padding:22px 0;
     overflow:hidden;
     white-space:nowrap;
     display:flex;
-    border-top:1px solid rgba(0,0,0,.08);
-    border-bottom:1px solid rgba(0,0,0,.08);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
   }
   .marquee-track{
     display:inline-flex;
     align-items:center;
     flex-shrink:0;
-    animation:marquee-scroll 26s linear infinite;
+    animation:marquee-scroll 32s linear infinite;
   }
   .marquee-banner:hover .marquee-track{ animation-play-state:paused; }
   .marquee-track span{
     font-family:'JetBrains Mono',monospace;
-    font-weight:700;
-    font-size:14px;
-    letter-spacing:.06em;
+    font-weight:600;
+    font-size:12.5px;
+    letter-spacing:.1em;
     text-transform:uppercase;
     padding:0 18px;
+    color:var(--gold-soft);
+    opacity:.75;
   }
-  .marquee-track .mq-sep{ padding:0; font-size:12px; opacity:.65; }
+  .marquee-track .mq-sep{ padding:0; font-size:11px; opacity:.4; color:var(--ink-faint); }
   @keyframes marquee-scroll{ from{ transform:translateX(0); } to{ transform:translateX(-100%); } }
   @media (prefers-reduced-motion: reduce){ .marquee-track{ animation:none; } }
 
@@ -433,7 +441,6 @@
     border:1px solid var(--line-strong); color:var(--ink-dim);
     transition:all .25s ease;
   }
-  /* .skill-group:hover .chip{ } */
   .chip:hover{ border-color:var(--jade); color:var(--jade-soft); }
 
   /* ============ 7. DISTINCTIONS ============ */
@@ -483,7 +490,6 @@
     display:flex; align-items:center; justify-content:center;
     color:var(--ink); font-family:'JetBrains Mono',monospace; font-weight:700; font-size:15px;
   }
-  /* layouts by count, via data-count on .gal-mosaic */
   .gal-mosaic[data-count="1"]{ grid-template-columns:1fr; }
   .gal-mosaic[data-count="1"] .gal-tile{ aspect-ratio:16/9; }
   .gal-mosaic[data-count="2"]{ grid-template-columns:1fr 1fr; }
@@ -496,7 +502,6 @@
   .gal-mosaic[data-count="gt4"]{ grid-template-columns:1fr 1fr 1fr; }
   .gal-mosaic[data-count="gt4"] .gal-tile{ aspect-ratio:1/1; }
 
-  /* ---- Placeholder tile (image not found yet) ---- */
   .gal-tile.is-empty{
     display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
     color:var(--ink-faint); font-family:'JetBrains Mono',monospace; font-size:10.5px; text-align:center; padding:10px;
@@ -551,6 +556,8 @@
   .quote-card p{ font-family:'Fraunces',serif; font-style:italic; font-size:21px; line-height:1.5; color:var(--ink); }
   .quote-card .qmark{ font-size:44px; color:var(--gold); line-height:1; font-family:'Fraunces',serif; }
   .quote-card footer{ margin-top:22px; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--ink-faint); }
+  .quote-cta{ margin-top:22px; }
+  .quote-cta svg{ width:14px; height:14px; }
 
   /* ============ 9. PROJECTS ============ */
   .filter-row{ display:flex; flex-wrap:wrap; gap:10px; margin-bottom:40px; }
@@ -575,7 +582,6 @@
   .proj-body{ padding:22px 24px 24px; display:flex; flex-direction:column; flex:1; }
   .proj-top{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; }
 
-  /* ---- Cover: live iframe preview / image carousel / placeholder ---- */
   .proj-cover{
     position:relative; width:100%; aspect-ratio:16/10; overflow:hidden;
     background:linear-gradient(135deg, var(--bg-elevated), var(--bg-alt));
@@ -603,7 +609,6 @@
   .pc-live-badge .pc-dot{ width:6px; height:6px; border-radius:50%; background:var(--jade); position:relative; }
   .pc-live-badge .pc-dot::after{ content:""; position:absolute; inset:-4px; border-radius:50%; border:1px solid var(--jade); animation:pulse-ring 2.2s ease-out infinite; }
 
-  /* placeholder cover (no live url, no gallery) */
   .pc-placeholder{
     position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px;
     color:var(--ink-faint);
@@ -611,7 +616,6 @@
   .pc-placeholder .pc-glyph{ font-family:'JetBrains Mono',monospace; font-size:26px; font-weight:700; color:var(--ink-dim); }
   .pc-placeholder .pc-mono{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; opacity:.7; }
 
-  /* image carousel cover (gallery, no live url) */
   .pc-carousel{ position:absolute; inset:0; }
   .pc-carousel .pc-slide{
     position:absolute; inset:0; opacity:0; transition:opacity .5s ease;
@@ -710,7 +714,6 @@
       <a href="#contact" class="nav-link">Contact</a>
     </nav>
     <div class="nav-cta">
-      <!-- <a href="assets/cv_2p_fr.pdf" download class="btn btn-ghost btn-sm">Télécharger le CV</a> -->
       <button class="nav-burger" id="navBurger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -722,7 +725,7 @@
   <section id="hero" class="hero">
     <div class="wrap hero-inner">
       <div class="hero-kicker reveal is-in"><span class="pulse"></span>  — Ouvert aux missions freelance</div>
-      <h1 class="reveal is-in">Hafiz MOUSTAPHA —<br><!-- je conçois des produits <em>numériques durables.</em> --></h1>
+      <h1 class="reveal is-in">Hafiz MOUSTAPHA —<br></h1>
       <p class="hero-role reveal is-in reveal-d1"><span id="typedRole"></span><span class="role-cursor">|</span></p>
       <p class="hero-lede reveal is-in reveal-d2">
         Développeur Full-Stack orienté mobile, diplômé <strong>Mention Très Bien</strong> en Analyse et Programmation Informatique (ENEAM).
@@ -742,26 +745,6 @@
       </div>
     </div>
   </section>
-
-  <!-- ===================== BANNER (marquee tagline) ===================== -->
-  <div class="marquee-banner" aria-hidden="true">
-    <div class="marquee-track">
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-    </div>
-    <div class="marquee-track" aria-hidden="true">
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
-    </div>
-  </div>
 
   <!-- ===================== HIGHLIGHT — Senior Mood ===================== -->
   <section id="highlight" class="highlight-band">
@@ -794,7 +777,7 @@
             <span class="avatar-fallback" id="avatarFallback">AH</span>
             <div class="avatar-tag"><span class="pulse"></span> Disponible pour missions</div>
           </div>
-           
+
 
           <div class="lang-row">
             <div class="lang-item"><span class="lname">Goun / Fon</span><div class="lang-dots"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
@@ -981,13 +964,13 @@
           <span class="qmark">"</span>
           <p>Mon engagement en faveur des droits des enfants et des femmes m'a amené à participer à de nombreux forums, ateliers, émissions radio, campagnes de sensibilisation et activités communautaires.</p>
           <footer>— Extrait de mon parcours associatif, depuis 2019</footer>
-          <a href="https://web.facebook.com/anacebenin" target="_blank" rel="noopener" class="btn btn-primary hl-cta" style="margin-top: 10px;">
-          Découvrir l'ANACEB
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
-        </a>
+          <a href="https://web.facebook.com/anacebenin" target="_blank" rel="noopener" class="btn btn-ghost quote-cta">
+            Découvrir l'ANACEB
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+          </a>
         </div>
 
-        
+
       </div>
     </div>
   </section>
@@ -1031,6 +1014,26 @@
       </div>
     </div>
   </section>
+
+  <!-- ===================== MARQUEE (déplacé ici, version subtile) ===================== -->
+  <div class="marquee-banner" aria-hidden="true">
+    <div class="marquee-track">
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+    </div>
+    <div class="marquee-track" aria-hidden="true">
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+      <span>Crafting Something That Matters</span><span class="mq-sep">✦</span>
+    </div>
+  </div>
 
 </main>
 
@@ -1156,9 +1159,6 @@
   }
 
   function attachMosaicHandlers(root, indexAttr, dataProvider){
-    // dataProvider(realIdx) returns { images:[...], label:"..." }
-    // realIdx is read from the closest [indexAttr] ancestor, so mosaics
-    // stay correctly matched even when some cards have no gallery at all.
     root.querySelectorAll(".gal-mosaic").forEach(function(mosaic){
       var host = mosaic.closest("[" + indexAttr + "]");
       if(!host) return;
@@ -1255,12 +1255,6 @@
 
   /* ---------------------------------------------------------------
    * Distinctions data + render
-   * Each entry: { cat, title, desc, images:[...], link, size:"sm"|"lg" }
-   * - images: 0, 1, 2, 3, 4 or 5+ — the mosaic adapts automatically.
-   *   Drop real files in assets/img/distinctions/ and list their
-   *   paths here (or leave the array empty to hide the gallery).
-   * - link: optional "en savoir plus" URL, opens in a new tab.
-   *   Leave as "" to hide the link.
    * ------------------------------------------------------------- */
   var DISTINCTIONS = [
     {
@@ -1290,7 +1284,7 @@
       images:["assets/img/distinctions/bhn-1.png", "assets/img/distinctions/bhn-1.png"],
       link:""
     },
-    
+
     {
       cat:"Entrepreneuriat", size:"sm",
       title:"Aspire Leader Program",
@@ -1298,7 +1292,7 @@
       images:["assets/img/distinctions/aspire-1.png"],
       link:""
     },
-    
+
   ];
 
   var distGrid = document.getElementById("distGrid");
@@ -1340,7 +1334,7 @@
   /* ---------- Projects data + render + filter ---------- */
   var PROJECTS = [
     { name:"Senior Mood", desc:"Site officiel de Senior Mood : agence digitale spécialisée dans la tech, l'IA et l'innovation — actualités, ressources et communauté.", repo:"https://github.com/AbdulHafizMous/smood", live:"https://smood.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"private" },
-    { name:"HeventZ", desc:"Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.", repo:"https://github.com/AbdulHafizMous/HeventZ", live:"https://hevent-z.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"public" },
+    { name:"HeventZ", desc:"Plateforme de gestion et de découverte d'événements, pensée pour une expérience fluide et moderne.", repo:"https://github.com/AbdulHafizMous/HeventZ", live:"https://hevent-z.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private", gallery:["assets/img/portfolio/heventz.png"] },
     { name:"Vizly.co", desc:"Application web orientée data & visualisation, conçue pour explorer l'information avec clarté.", repo:"https://github.com/AbdulHafizMous/vizly.co", live:"https://vizly-co-beta.vercel.app/", lang:"TypeScript", color:"#3178c6", cat:"web", visibility:"private" },
     { name:"Koro", desc:"Projet web déployé, exploratoire et orienté interface utilisateur soignée.", repo:"https://github.com/AbdulHafizMous/koro", live:"https://koro-h7cs.onrender.com/", lang:"HTML", color:"#e34c26", cat:"web", visibility:"public" },
     { name:"OutilSco", desc:"Plateforme complète de gestion scolaire — élèves, notes, bulletins — réalisée pour Ford High Tech.", repo:"https://github.com/AbdulHafizMous/gp-backend", live:"https://outilsco.com/", lang:"PHP", color:"#4f5d95", cat:"web", visibility:"private" },
@@ -1377,7 +1371,6 @@
   function escapeAttr(s){ return String(s).replace(/"/g, "&quot;"); }
 
   function buildCover(p, idx){
-    // Priority: live iframe preview > image gallery carousel > placeholder
     if(p.live){
       return (
         '<div class="proj-cover">'+
